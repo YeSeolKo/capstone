@@ -1,14 +1,28 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React,{useContext} from "react";
+import styled from "styled-components";
+import Navbar from "./Navbar";
+//import { Link } from "react-router-dom";
 
-//헤더입니다 를 누르면 /페이지로 이동
-function Header(props){
-    return(
-        <>
-            <Link to="/"> 
-                 <h1>헤더 입니다.</h1>
-            </Link>
-        </>
-    );
+
+//css-스타일드 컴포넌트 사용 ㄱㄱ 
+const HeaderBlock=styled.div`
+  background:lightgrey;
+  h1{
+    color:green;
+  }
+  `;
+
+const Header=()=>{
+
+  //스타일드 컴포넌트로 헤드 감싸줌 ㄱㄱ 
+ return (
+    <HeaderBlock>
+      <header>
+        <h1>헤더</h1>
+        <Navbar/>
+      </header>
+    </HeaderBlock>
+  );
 }
+
 export default Header;

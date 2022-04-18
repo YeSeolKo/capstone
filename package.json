@@ -8,6 +8,7 @@
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^0.26.1",
     "cors": "^2.8.5",
     "express": "^4.17.3",
     "http-proxy-middleware": "^2.0.4",
@@ -16,13 +17,12 @@
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.0",
     "request": "^2.88.2",
+    "styled-components": "^5.3.5",
     "three": "^0.139.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "npm-run-all -p starts:**",
-    "starts:client": "react-scripts start",
-    "starts:server": "nodemon ./server/server.js",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
