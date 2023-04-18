@@ -1,3 +1,4 @@
+//"" 미디어파이프 ""
 import { FaceMesh, FACEMESH_LEFT_EYE, FACEMESH_LIPS, FACEMESH_RIGHT_EYE, Results } from "@mediapipe/face_mesh";
 import React, { useRef, useEffect } from "react";
 import * as Facemesh from "@mediapipe/face_mesh";
@@ -7,14 +8,14 @@ import Webcam from "react-webcam";
 import BackCard from "../home/BackCard";
 
 
-export default function FaceMeshComponent() {
+export default function MP_FaceMeshComponent() {
   
   const webcamRef=useRef(null);
   const canvasRef=useRef(null);
   //camera 초기화
   var camera=null;
-  //connect
-  const connect = drawConnectors;//drawConnectors사용 
+  //drawing
+  const drawing = drawConnectors;//drawConnectors사용 
   
   //onResults 콜백함수 
   function onResults(results){
@@ -24,6 +25,7 @@ export default function FaceMeshComponent() {
     const videoWidth = webcamRef.current.video.videoWidth;
     const videoHeight = webcamRef.current.video.videoHeight;
 
+    //canvas와 video를 연결해야한다 --> 그래야 filter처럼 사용 
     // Set canvas width 캔버스 너비 지정
     canvasRef.current.width = videoWidth;
     canvasRef.current.height = videoHeight;
@@ -42,27 +44,27 @@ export default function FaceMeshComponent() {
     //------------------faceMesh 그리는부분
     if (results.multiFaceLandmarks) {
       for (const landmarks of results.multiFaceLandmarks) {
-        connect(canvasCtx, landmarks, Facemesh.FACEMESH_TESSELATION, {
+        drawing(canvasCtx, landmarks, Facemesh.FACEMESH_TESSELATION, {
           color: "#C0C0C070",
           lineWidth: 1,
         });
         //
-        connect(canvasCtx, landmarks, Facemesh.FACEMESH_RIGHT_EYE, {
+        drawing(canvasCtx, landmarks, Facemesh.FACEMESH_RIGHT_EYE, {
           color: "#FF3030",
         });
-        connect(canvasCtx, landmarks, Facemesh.FACEMESH_RIGHT_EYEBROW, {
+        drawing(canvasCtx, landmarks, Facemesh.FACEMESH_RIGHT_EYEBROW, {
           color: "#FF3030",
         });
-        connect(canvasCtx, landmarks, Facemesh.FACEMESH_LEFT_EYE, {
+        drawing(canvasCtx, landmarks, Facemesh.FACEMESH_LEFT_EYE, {
           color: "#30FF30",
         });
-        connect(canvasCtx, landmarks, Facemesh.FACEMESH_LEFT_EYEBROW, {
+        drawing(canvasCtx, landmarks, Facemesh.FACEMESH_LEFT_EYEBROW, {
           color: "#30FF30",
         });
-        connect(canvasCtx, landmarks, Facemesh.FACEMESH_FACE_OVAL, {
+        drawing(canvasCtx, landmarks, Facemesh.FACEMESH_FACE_OVAL, {
           color: "#E0E0E0",
         });
-        connect(canvasCtx, landmarks, Facemesh.FACEMESH_LIPS, {
+        drawing(canvasCtx, landmarks, Facemesh.FACEMESH_LIPS, {
           color: "#E0E0E0",
         });
       }
@@ -149,7 +151,8 @@ export default function FaceMeshComponent() {
             width: 640,
             height: 480,
           }}
-        ></canvas>
+        />
+        {/* </canvas> */}
       </div>
   );
 }
