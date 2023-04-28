@@ -1,8 +1,10 @@
 //"" Tensorflow.js""" 
 
 import React, { useRef, useState } from 'react';
-//import * as tf from "@tensorflow/tfjs";
-//import * as facemesh from"@tensorflow-models/facemesh";
+//tensorflow
+import * as tf from "@tensorflow/tfjs";
+import * as facemesh from "@tensorflow-models"
+//import * as facemesh from"@tensorflow-models/facemesh"; -> old model 
 import Webcam from "react-webcam";
 import styled from 'styled-components';
 // import tw from 'tailwind-styled-components/dist/tailwind';
@@ -22,8 +24,9 @@ const WebcamContainer = styled(Webcam)`
   height: 480px;
 `;
 
+//캔버스 
 const CanvasContainer = styled.div`
-  background-color: beige;
+  background-color: yellow; //노랑
   position: absolute;
   margin-left: auto;
   margin-right: auto;
@@ -40,8 +43,13 @@ const CanvasContainer = styled.div`
 
 
 export default function TF_FaceMeshComponent() {
+
     const webcamRef=useRef(null);
     const canvasRef=useRef(null);
+
+    //
+    
+    const runFace = facemesh.load;
 
     return(
         <>
