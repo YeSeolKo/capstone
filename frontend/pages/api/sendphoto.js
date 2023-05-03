@@ -14,7 +14,9 @@ export default async function handler(req,res){
 
     //POST요청일 때만 success 
     if (req.method== 'POST'){
-        res.status(200).json({message:'success!'});
+        const{imgsrc} = req.body;
+    
+        res.status(200).json({message:'success!'}); 
         
     }
     else {res.status(500).json({error:'error'})}
