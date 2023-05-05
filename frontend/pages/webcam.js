@@ -77,40 +77,74 @@ const videoConstraints = {
 export default function webcam(){
   const[image,setImage]=useState('');
   const webcamRef=useRef(null);
-  const router=useRouter(); //useRouter 
-
+  const router=useRouter(); //useRouter
+  
   //캡쳐 함수
-  const capture=useCallback(
-    () =>{
-        const imageSrc = webcamRef.current.getScreenshot();
-        setImage(imageSrc); //setImage함수(imgSrc넣기 ->현재이미지)
-        console.log(webcamRef.current.getScreenshot()); //콘솔에 이미지
-        });
-  //formData생성
-  const sendForm=()=>{
+  const capture=useCallback(() =>{
+      const imageSrc = webcamRef.current.getScreenshot();
+      setImage(imageSrc); //setImage함수(imgSrc넣기 ->현재이미지)
+      console.log(webcamRef.current.getScreenshot()); //콘솔에 이미지
+    });
     
-    const formData = new FormData(); //formDatat객체 생성
-    formData.append('imgsrc',image); //이미지src넣어주기
-    const config={
-        headers:{
-            'Content-type':'multipart/form-data',
-            'Accpet':'*',
-            'withCredentials':'true'//cors관련 
+
+    // dataURI to Blob 함수
+    const dataURItoBlob = (dataURI) => {
+        const byteString = atob(dataURI.split(',')[1]);//실제 데이터부분만 추출,atob()로바이너리 데이터만듦
+        const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+        const ab = new ArrayBuffer(byteString.length);
+        const ia = new Uint8Array(ab);
+        for (let i = 0; i < byteString.length; i++) {
+            ia[i] = byteString.charCodeAt(i);
         }
-    };
+        return new Blob([ab], { type: mimeString });//Blob객체 생성 
+    }
+
+
+    //formData생성----
+    const sendForm=()=>{
+        const formData = new FormData(); //formData객체 생성
+        const blob = dataURItoBlob(image); // dataURI to Blob 변환
+        formData.append('capturedImage',blob); //Blob 파일 formData로 전송 
+        const config={
+            headers:{
+                'Content-type':'multipart/form-data',
+                'Accpet':'*',
+                'withCredentials':'true'//cors관련 
+            }
+        };
 
     //post로 요청 시 
-    axios.post('/api/sendphoto',formData,config)
-            .then((res)=>{
-                console.log(res.status);//상태 코드 받아보기
-                router.push('/rendering'); //ok버튼 누르면 페이지 이동
+    // + api로 보내는 것 대신, 직접 flask서버로 보내기 
+
+    //flask : postImage----------------------------------
+    axios.post('http://127.0.0.1:5000/postImage',formData,config)
+            .then((res)=>{ //axios.post 성공시
+                console.log(res.data);//json메시지 들어옴 
+                alert(res.data.message);
+                
+                 //router.push: ok버튼 누르면 페이지 이동
+                router.push({
+                    pathname:'/routingTest',
+                    query:{
+                        data:JSON.stringify(res.data)
+                    }
+                }); 
             })
+            //에러처리
+            .catch((err)=>{
+                console.log(err);
+            })
+        }
+
+    // next API -----------------------------------------
+    // axios.post('/api/sendphoto',formData,config)
+    //         .then((res)=>{
+    //             console.log(res.status);//상태 코드 받아보기
+    //            // router.push('/rendering'); //ok버튼 누르면 페이지 이동
+    //         })
             
-
-            
-
-
-    }
+    // }
+    //------------------------------------------------
 
   return (
     <>
@@ -127,8 +161,9 @@ export default function webcam(){
                     ref={webcamRef}
                     screenshotFormat="image/jpeg"
                     width={400} //NOTE - 조절!!!!
+                    // img src ={imag} -> 캡쳐한 이미지 
                     videoConstraints={videoConstraints}
-                /> : <img src={image} />}
+                /> : <img src={image} />}   
             </WebcamImage>
 
             <WebcamBtnContainer>
@@ -158,6 +193,8 @@ export default function webcam(){
                 {/**ok 버튼 누르면 -> 사진 전송*/}
                 {/*tailwindcss 가운데 정렬*/}
             <div className='flex justify-center items-center'>
+
+               
                 { image!=''?
                     <OKbtn onClick={()=>sendForm()}>ok!</OKbtn> : null}
                     
