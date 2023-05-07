@@ -4,6 +4,8 @@ import Ch_test from '../components/3D/Ch_test'; //Ch_test
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import { PropertyBinding } from 'three';
+import CharacterV4 from '../components/3D/CharacterV4';
+import BackCard from '../components/home/BackCard';
 
 
 export default function RoutingTest() {
@@ -49,6 +51,13 @@ export default function RoutingTest() {
     <>
       <Seo title='routingTest' />
 
+
+
+
+
+
+      {/** -----------------------------------------------------*/}
+
       <h1>{hair_type}</h1>
       <h1>얼굴형:{face_type}</h1>
       <h1>머리스타일:{hair_type}</h1>
@@ -58,18 +67,30 @@ export default function RoutingTest() {
       <div>{glass_type === true ? <h1>안경 ok</h1>:null }</div>
 
       
+      <BackCard>
       <Canvas className='bg-white'>
         <ambientLight intensity={1} />
         <spotLight intensity={0.5} angle={0.1} penumbra={1} position={[10, 15, 10]} castShadow />
 
-        {/*3D 모델 = 하나의 mesh 임 !! */}
+
+        {/* 안경 */}
+        <CharacterV4 meshName='glasses_1'/>
+        {/* 헤어 */}
+        {/* <CharacterV4 meshName='C'/>
+        <CharacterV4 meshName='D'/> */}
         {/* 얼굴 */}
-        <>{glass_type === true ? <Ch_test meshName={face_type}/> : null }</>
+        <CharacterV4 meshName='face01'/>
+
+        <OrbitControls/> {/*3D 모델 축 회전 관련*/}
+        {/* 3D 모델 = 하나의 mesh 임 !! */}
+        {/* 얼굴 */}
+        {/* <>{glass_type === true ? <Ch_test meshName={face_type}/> : null }</> */}
         {/* 헤어 */}
         {/* <Ch_test meshName={h_mesh} scale={scale}/> */}
 {/*         
         <OrbitControls/> 3D 모델 회전 */}
       </Canvas>
+      </BackCard>
     </>
   );
 }

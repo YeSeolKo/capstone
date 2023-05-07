@@ -53,7 +53,7 @@ def face():
 
 @app.route('/hairtest')
 def hairtest():
-    img_path = './static/leeCS.jpg'
+    img_path = './static/danbal.jpg'
     hairType = hairDetection.deeplearning(img_path)
     print('>>>헤어 결과:'+hairType)
     return hairType
