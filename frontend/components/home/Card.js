@@ -1,14 +1,44 @@
 import tw from 'tailwind-styled-components';
 import styled from 'styled-components';
 
-export default function Card(contacts) {
+
+export default function Card({children}) {
   return(
-    <div className='grid grid-cols-1 md:grid-cols-4 gap-8 sm:w-full'>
-    <div className='p-6 bg-slate-400 rounded-md'
-      key={contacts.id}
-      name={contacts.name}
-    /> 
+    <>
+    {/* CardWrapper */}
+    <div className="m-auto md:w-6/12 lg:w-6/12 xl:w-10/12">
+      {/* Card */}
+      <div className="rounded-xl bg-white shadow-xl">
+        {/* Card Margin(아래) + Padding */}
+        <div className="mb-4 p-4">
+          {/* CardContent 행 하나씩씩*/}
+          <div className=" grid grid-flow-row auto-rows-maxflex justify-center items-center">
+            {children}
+          </div>
+        </div>
+
+      </div>
     </div>
+    
+
+{/* 
+const CardWrapper = tw.div`
+  m-auto md:w-6/12 lg:w-6/12 xl:w-10/12
+`;
+
+const Card = tw.div`
+  rounded-xl bg-white shadow-xl
+`;
+
+const CardPadding = tw.div`
+  p-4
+`;
+
+const CardContent = tw.div`
+  grid grid-rows-1 grid-flow-col flex justify-center items-center
+`; */}
+
+    </>
   );
 }
 
