@@ -83,10 +83,10 @@ def detection(img_path):
     
     #안경 착용 여부 판정
     if 255 in edges_center:
-        message='안경o'
+        message='O'
         print('안경 O')
     else:
-        message='안경x'
+        message='x'
         print('안경X')
     
     return message

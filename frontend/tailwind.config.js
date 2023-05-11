@@ -9,8 +9,9 @@ module.exports = {
   theme: {
     extend: {
       fontFamily:{
-        gmarket:["GmarketSansMedium"],
-      }
+        gmarket:["gmarket","sans-serif"],
+        bmjua:["bmjua","sans-serif"]
+      },
     },
   },
   variants: {

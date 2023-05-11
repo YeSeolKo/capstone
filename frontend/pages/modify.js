@@ -4,7 +4,7 @@ import Ch_test from '../components/3D/Ch_test'; //Ch_test
 
 import { OrbitControls } from '@react-three/drei';
 import { PropertyBinding } from 'three';
-import CharacterV4 from '../components/3D/CharacterV4';
+
 import BackGround from '../components/home/BackGround';
 import{useEffect} from 'react';
 //next,react
@@ -20,6 +20,8 @@ import styled from 'styled-components';
 import { Canvas } from '@react-three/fiber';
 import { Text } from '@react-three/drei';
 import react from 'react';
+import Character_All from '../components/3D/Character_All';
+import CharacterV4 from '../components/3D/CharacterV4';
 
 // ─── css  ───────────────────────────────────────────────────────────────────────
 //배경색
@@ -43,30 +45,12 @@ const Description=tw.div`lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0`;
 const Card_Container = tw.div`my-8 w-full p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 dark:bg-gray-800 dark:border-gray-700`;
 const Card_ul=tw.ul`my-4 space-y-3`;
 
-
-//Tab Menu
-const TabButton = styled.button`
-  ${tw`opacity-50`}
-  ${({ isActive }) => isActive && tw`opacity-100`}
-  border-bottom-width: ${({ isActive }) => (isActive ? '2px' : '0')};
-  border-bottom-color: ${({ isActive }) => (isActive ? 'blue-600' : 'none')};
-`;
-
-// opacity: ${({ isActive }) => (isActive ? '100' : '50')};
-// border-bottom-width: ${({ isActive }) => (isActive ? '2px' : '0')};
-// border-bottom-color: ${({ isActive }) => (isActive ? 'blue-600' : '')};
 // ─────────────────────────────────────────────────────────────────────────────
 
 export  default function Modify(){
 
     const router = useRouter();
     const [data, setData] = useState(null);
-
-    const [activeTab, setActiveTab] = useState(1);
-
-    const handleTabClick = (tabIndex) => {
-      setActiveTab(tabIndex);
-    };
 
     useEffect(() => {
       if (router.query.data) {
@@ -81,102 +65,63 @@ export  default function Modify(){
     }
 
 
-    // const router=useRouter();
-    // const {data}=router.query; //쿼리 받아오기
-    // // console.log(data) //json
-    // const parsedData = JSON.parse(data);//json parsing
-    //json parsing
-    // const hair_type=parsedData.hair_type;
-    // const face_type=parsedData.face_type;
-    // const glasses_type=parsedData.glasses_type;
- 
     return(
     <>
     <Seo title='modify' />
-        <Link href="/recording">
-            <buffon>녹화</buffon>
-        </Link>
-        <div>
-      {/* Tab buttons */}
-      <nav className="mb-5 flex list-none flex-row flex-wrap border-b-0 pl-0">
-        {/* Tab 1 */}
-        {/* <button
-          type="button"
-          className={`${
-            activeTab === 1 ? 'opacity-100 border-b-2 border-blue-600' : 'opacity-50'
-          }`}
-          onClick={() => handleTabClick(1)}
-        >
-          Tab 1
-        </button> */}
-         <TabButton
-          type="button"
-          isActive={activeTab === 1}
-          onClick={() => handleTabClick(1)}
-        >
-          Tab 1
-        </TabButton>
+       <h1>Modifty</h1>
+        <Section>
+      <Container>
+        <Wrapper>
+        {/* 캔버스------------------------- */}
+        <div className='lg:w-1/2 w-full border-4 lg:h-auto h-64 object-cover object-center rounded'>
+          <Canvas className=''>
+            <ambientLight intensity={1} />
+            <spotLight intensity={0.5} angle={0.1} penumbra={1} position={[10, 15, 10]} castShadow />
+            <Text position={[0, 0, 0]} fontSize={1}>Hello,World !</Text>
 
-        {/* Tab 2 */}
-        <button
-          type="button"
-          className={`${
-            activeTab === 2 ? 'opacity-100 border-b-2 border-blue-600' : 'opacity-50'
-          }`}
-          onClick={() => handleTabClick(2)}
-        >
-          Tab 2
-        </button>
+            {/* 캐릭터------------- */}
+            {/* 얼굴 */}
+            {/* <Suspense fallback={<Loading/>}> */}
+            <mesh>
+              {/* <CharacterV4 meshName='face01'/> */}
+              <CharacterV4 meshName='glasses_1'/>
+            </mesh>
+            <Character_All meshName='face02'/>
+            <OrbitControls/> {/*3D 모델 축 회전 관련*/}
+            {/* </Suspense> */}
 
-        {/* Tab 3 */}
-        <button
-          type="button"
-          className={`${
-            activeTab === 3 ? 'opacity-100 border-b-2 border-blue-600' : 'opacity-50'
-          }`}
-          onClick={() => handleTabClick(3)}
-        >
-          Tab 3
-        </button>
-
-        {/* Tab 4 */}
-        <button
-          type="button"
-          className={`${
-            activeTab === 4 ? 'opacity-100 border-b-2 border-blue-600' : 'opacity-50'
-          }`}
-          onClick={() => handleTabClick(4)}
-        >
-          Tab 4
-        </button>
-      </nav>
-
-      {/* Tab content */}
-      <div>
-        {/* Tab 1 content */}
-        <div className={`${activeTab === 1 ? 'block' : 'hidden'}`}>
-          Tab 1 content
+        </Canvas>
         </div>
 
-        {/* Tab 2 content */}
-        <div className={`${activeTab === 2 ? 'block' : 'hidden'}`}>
-          <div className='grid-grid-col-5'>
-              <h1>sgs</h1>
-              <h1>dsgd</h1>
-          </div>
-        </div>
+        {/* <Image alt='ecommerce' src='https://dummyimage.com/400x400'/> */}
+        {/* 캔버스------------------------- */}
 
-        {/* Tab 3 content */}
-        <div className={`${activeTab === 3 ? 'block' : 'hidden'}`}>
-          Tab 3 content
-        </div>
+        {/* 왼쪽 ---------------------------*/}
+        <Description>
+          {/* 카드 */}
+          <Card_Container>
+            <h1>dsggdg</h1>
+          </Card_Container>
 
-        {/* Tab 4 content */}
-        <div className={`${activeTab === 4 ? 'block' : 'hidden'}`}>
-          Tab 4 content
+          {/* 버튼 */}
+          <div className='flex'>
+            <p>녹화 하러 가기 </p>
+            {/* 링크 */}
+
+            <Link href={{
+              pathname: '/recording',
+              query: {
+                data: JSON.stringify(data)
+              }
+            }}>
+          <button className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">녹화</button>
+          </Link>
         </div>
-      </div>
-    </div>
+        </Description>
+        {/* 왼쪽 ---------------------------*/}
+        </Wrapper>
+        </Container>
+        </Section>
 
 
 

@@ -124,7 +124,7 @@ export default function webcam(){
                 
                  //router.push: ok버튼 누르면 페이지 이동
                 router.push({
-                    pathname:'/routingTest',
+                    pathname:'/rtcopy',
                     query:{
                         data:JSON.stringify(res.data)
                     }

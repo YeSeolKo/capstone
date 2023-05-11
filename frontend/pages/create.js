@@ -20,6 +20,8 @@ const Rounded=tw.div`rounded-xl bg-white shadow-xl `
 
 
 export  default function create(){
+
+    
     return(
         <>
         <Seo title='create'></Seo>
@@ -33,7 +35,7 @@ export  default function create(){
                     <div className="space-y-4">
                         
                         <h2 className="mb-8 text-2xl text-cyan-900 font-bold">메뉴 선택창<br/></h2>
-                        <h3>얼굴 사진이 필요해요!!</h3>
+                        <h3 className="font-gmarket">얼굴 사진이 필요해요!!</h3>
                         
                         
                     </div>
@@ -49,13 +51,13 @@ export  default function create(){
                         </Link>
                 
                          {/* 버튼 =>사진 파일 */}
+                        <Link href="/photoupload">
                         <button className="group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100">
                             <div className="relative flex items-center space-x-4 justify-center">
-                                
-                                <a href="">
                                 <span className="block w-max font-semibold tracking-wide text-gray-700 text-sm transition duration-300 group-hover:text-blue-600 sm:text-base">사진 파일을 올릴래요</span>
-                            </a></div>
+                            </div>
                         </button>
+                        </Link>
                         
                     </div>
 

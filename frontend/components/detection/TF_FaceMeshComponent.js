@@ -82,7 +82,7 @@ export default function TF_FaceMeshComponent() {
           const estimationConfig = { flipHorizontal: false };//수평반전
           //예측
           const predictions=await detector.estimateFaces(video,estimationConfig);
-          //console.log(predictions)
+          console.log(predictions)
           //canvas context가져오기
           //const ctx=canvasRef.current.getContext("2d");
           //requestAnimationFrame(()=>{draw(predictions,ctx)});//

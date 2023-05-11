@@ -72,8 +72,12 @@ def deeplearning(img_path):
                    '소프트투블럭댄디', '숏단발', '쉐도우', '쉼표', '스핀스왈로', '시스루댄디', '애즈', '에어', '여자일반숏', '원랭스', '원블럭댄디', '테슬', '포마드', '플리츠', '허쉬', '히피']
     print('Predicted:', class_names[np.argmax(preds)])
 
+    results_classes = []  # 상위 5개 클래스명 담는 리스트
+
     pred_classes = preds[0].argsort()[-5:][::-1]  # 상위 5개 클래스 인덱스 추출
     print('Top 5 Predicted Classes:')
     for i in pred_classes:
-        print(class_names[i], ':', preds[0][i])
-    return 'Done'
+        results_classes.append(class_names[i])  # 리스트에 담기
+        # print(class_names[i], ':', preds[0][i])
+    print(results_classes)
+    return results_classes

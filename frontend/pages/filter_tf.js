@@ -10,7 +10,11 @@ import dynamic from 'next/dynamic'; //SSR:false를 위해서 dynamic 사용
 //     ssr:false,
 //     });
 
-const TF_Pose = dynamic(()=> import ('../components/detection/TF_Pose'),{
+// const TF_Pose = dynamic(()=> import ('../components/detection/TF_Pose'),{
+//     ssr:false,
+//     });
+
+const TF_All = dynamic(()=> import ('../components/detection/TF_All'),{
     ssr:false,
     });
     
@@ -20,7 +24,8 @@ export  default function TF_Filter(){
         <>
         <Seo title='TF'></Seo>
         {/* <TF_FaceMeshComponent/> */}
-        <TF_Pose/>
+        {/* <TF_Pose/> */}
+        <TF_All/>
         </>
     );
 }

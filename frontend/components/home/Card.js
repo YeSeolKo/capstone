@@ -6,13 +6,13 @@ export default function Card({children}) {
   return(
     <>
     {/* CardWrapper */}
-    <div className="m-auto md:w-6/12 lg:w-6/12 xl:w-10/12">
+    <div className="m-auto md:w-6/12  lg:w-6/12 xl:w-10/12 ">
       {/* Card */}
-      <div className="rounded-xl bg-white shadow-xl">
-        {/* Card Margin(아래) + Padding */}
-        <div className="mb-4 p-4">
+      <div className="h-screen rounded-xl bg-white shadow-xl">
+        {/* Card Margin(아래) */}
+        <div className="mb-4 ">
           {/* CardContent 행 하나씩씩*/}
-          <div className=" grid grid-flow-row auto-rows-maxflex justify-center items-center">
+          <div className="grid place-items-center">
             {children}
           </div>
         </div>

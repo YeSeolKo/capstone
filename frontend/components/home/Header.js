@@ -18,13 +18,13 @@ export default function Header(){
         {/* //SECTION - yeseol 3d project 메인으로 돌아가는 link */}
         <Link href='/'>
             <a className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0"> 
-            <span className="ml-3 text-xl">3D PROJECT</span>
+            <span className="font-gmarket sml-3 text-xl">3D PROJECT</span>
             </a>
         </Link>
 
         <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center">
-            <a className="mr-5 hover:text-gray-900">홈</a>
-            <a className="mr-5 hover:text-gray-900">프로젝트</a>
+            <a className="font-gmarket mr-5 hover:text-gray-900">홈</a>
+            <a className="font-gmarket mr-5 hover:text-gray-900">프로젝트</a>
            
         </nav>
             {/* <button className="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">로그인

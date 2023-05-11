@@ -22,7 +22,7 @@ export default function CharacterV4(props) {
         //안경 (glasses_1)
           case 'glasses_1':
             mesh=(
-                <group name='glasses_1' position={[-3.05, 0.21, 0.32]} rotation={[-Math.PI, 1.52, -Math.PI]} scale={0.08}>
+                <group name='glasses_1' position={[0, 0.2, 0.3]} rotation={[-Math.PI, 1.52, -Math.PI]} scale={0.08}>
                 <mesh geometry={nodes.a_A06.geometry} material={materials.daz__A06} />
                 <mesh geometry={nodes.a_A06_1.geometry} material={materials.daz__B05} />
                 <mesh geometry={nodes.a_A06_2.geometry} material={materials.daz__E04} />
@@ -181,7 +181,7 @@ export default function CharacterV4(props) {
 
         case 'face01':
             mesh=(
-                <mesh name="face01" geometry={nodes.face01.geometry} material={materials['Material_3.001']} morphTargetDictionary={nodes.face01.morphTargetDictionary} morphTargetInfluences={nodes.face01.morphTargetInfluences} position={[-3.09, -0.09, -0.03]} rotation={[0.07, 0, 0]} scale={1.96}>
+                <mesh name="face01" geometry={nodes.face01.geometry} material={materials['Material_3.001']} morphTargetDictionary={nodes.face01.morphTargetDictionary} morphTargetInfluences={nodes.face01.morphTargetInfluences} position={[0, 0, 0]} rotation={[0.07, 0, 0]} scale={1.96}>
                 <group position={[0.01, 0.05, 0.01]} rotation={[-0.07, 0, 0]} scale={[0.52, 0.51, 0.51]}>
                   <mesh geometry={nodes.ear_01001.geometry} material={materials.Material_4} position={[-0.7, 0.31, 0.14]} rotation={[-3.1, 0, -0.02]} scale={-0.44} />
                   <mesh geometry={nodes.ear_01002.geometry} material={materials.Material_4} position={[0.7, 0.31, 0.14]} rotation={[0.04, 0, -0.02]} scale={0.44} />

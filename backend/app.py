@@ -29,42 +29,52 @@ def postImage():
 
     # formData로전송된 blob파일 받기
     elif request.method == 'POST':
+
         blob = request.files['capturedImage']  # 이름이 같아야 함
         blob.save('./saved/image.jpeg')  # 크기는 frontend에서 webcam크기
         # 이미지 저장
         print('flask: next.js api -> flask OK')  # print
+        image_path = './saved/image.jpeg'
         # 모델 불러서 읽기
-        # 1) faceshape 모델 사용
-        # faceshape=faceDetection.deeplearning()
-        data = {'message': 'flask 사진 저장함'}
+        # 1) glasses
+        glasses_type = glassesDetection.detection(image_path)  # 함수
+        # 2) face
+        face_type = faceDetection.deeplearning(image_path)  # 함수
+        # 3) hair
+        # 리스트
+        hair_type = hairDetection.deeplearning(image_path)  # 함수
+
+        data = {'glasses_type': glasses_type,
+                'face_type': face_type,
+                'hair_type': hair_type}
     return jsonify(data)  # response
 
 # face test
 # test
 
 
-@app.route('/face')
-def face():
-    img_path = './static/faceTest.jpg'
-    faceshape = faceDetection.deeplearning(img_path)
-    print('>>>얼굴 결과:'+faceshape)
-    return faceshape
+# @app.route('/face')
+# def face():
+#     img_path = './static/faceTest.jpg'
+#     faceshape = faceDetection.deeplearning(img_path)
+#     print('>>>얼굴 결과:'+faceshape)
+#     return faceshape
 
 
-@app.route('/hairtest')
-def hairtest():
-    img_path = './static/danbal.jpg'
-    hairType = hairDetection.deeplearning(img_path)
-    print('>>>헤어 결과:'+hairType)
-    return hairType
+# @app.route('/hairtest')
+# def hairtest():
+#     img_path = './static/danbal.jpg'
+#     hairType = hairDetection.deeplearning(img_path)
+#     print('>>>헤어 결과:'+hairType)
+#     return hairType
 
 
-@app.route('/glasses')
-def glassesTest():
-    img_path = './static/leeCS.jpg'
-    glassesONF = glassesDetection.detection(img_path)
-    # print('>>>안경 착용 여부:'+glassesType)
-    return glassesONF
+# @app.route('/glasses')
+# def glassesTest():
+#     img_path = './static/leeCS.jpg'
+#     glassesONF = glassesDetection.detection(img_path)
+#     # print('>>>안경 착용 여부:'+glassesType)
+#     return glassesONF
 
     # #------------------
     # elif request.method == 'POST':
