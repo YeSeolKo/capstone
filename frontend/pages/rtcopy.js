@@ -55,37 +55,38 @@ const Card_ul=tw.ul`my-4 space-y-3`;
 export  default function rtcopy(){
     const router = useRouter();
     const [data, setData] = useState(null);
+    const {glasses,setGlasses}=useStore();
 
     useEffect(() => {
       if (router.query.data) {
         setData(JSON.parse(router.query.data));
+        //처음 마운트 됐을때만
       } else {
         // router.query.data 값이 없을 때의 처리 로직 작성
       }
     }, [router.query.data]);
+
+    //setGlasses(상태 관리 )
+    useEffect(()=>{
+      if (data && data.glasses_type) {
+        setGlasses(data.glasses_type);
+        // console.log('예측깂:',glasses);->null
+      }
+    }, [data, setGlasses]);
+
   
     if (!data) {
       return <div>Loading...</div>; // 데이터가 로드되기 전에 로딩 상태를 표시할 수 있습니다.
     }
 
-
     //json parsing해서 변수 선언 ----
-    // const router=useRouter();
-    // const data= JSON.parse(router.query.data);
     const hair_list=data.hair_type; //리스트
     const face_type=data.face_type;
     const glasses_type=data.glasses_type;//O,X
-    // const hair_type[0]=hair_list[0]; //헤어top1
-    // const hair_type=hair_list[1]; //헤어top2
-    // const hair_type_3=hair_list[2]; //헤어top3
-    // const hair_type_4=hair_list[3]; //헤어top4
-    // const hair_type_5=hair_list[4]; //헤어top5
     
-    //NOTE - hair_type,hair_mesh 매칭 
-    // console.log('json'+ matching_json)
-    // const hair_mesh_1 = matching_json[0].헤어스타일[hair_type_1];
-    // console.log(hair_mesh_1)
-
+    //store에 저장 확인 
+    console.log(glasses);
+    
     // hair_type 매칭
     const hair_mesh = [];
     const hair_type =[];
@@ -201,6 +202,22 @@ export  default function rtcopy(){
             }}>
           <button className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">수정</button>
           </Link>
+        </div>
+
+        <div className='flex'>
+          <p>녹화 하러 가기 버튼</p>
+           {/* 링크 */}
+
+           <Link href={{
+              pathname: '/recording',
+              query: {
+                data: JSON.stringify(data)
+              }
+            }}>
+               <button className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">녹화</button>
+   
+          </Link>
+
         </div>
         </Description>
         {/* 왼쪽 ---------------------------*/}

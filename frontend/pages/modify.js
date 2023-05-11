@@ -45,12 +45,47 @@ const Description=tw.div`lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0`;
 const Card_Container = tw.div`my-8 w-full p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 dark:bg-gray-800 dark:border-gray-700`;
 const Card_ul=tw.ul`my-4 space-y-3`;
 
+
+//TAB
+const Tabs = styled.div`
+  overflow: hidden;
+  background: #fff;
+  font-family: Open Sans;
+  height: 3em;
+`;
+
+const Tab = styled.button`
+  border: none;
+  outline: none;
+  cursor: pointer;
+  width: 20%;
+  position: relative;
+
+  margin-right: 0.1em;
+  font-size: 1em;
+  border: ${props => (props.active ? "1px solid #ccc" : "")};
+  border-bottom: ${props => (props.active ? "none" : "")};
+  background-color: ${props => (props.active ? "white" : "lightgray")};
+  height: ${props => (props.active ? "3em" : "2.6em; top:.4em")};
+  transition: background-color 0.5s ease-in-out;
+
+  :hover {
+    background-color: white;
+  }
+`;
+const Content = styled.div`
+  ${props => (props.active ? "" : "display:none")}
+`;
+
 // ─────────────────────────────────────────────────────────────────────────────
 
 export  default function Modify(){
 
     const router = useRouter();
     const [data, setData] = useState(null);
+    const [active, setActive] = useState(0);
+    const [characterMesh, setCharacterMesh] = useState('glasses_1');
+
 
     useEffect(() => {
       if (router.query.data) {
@@ -60,15 +95,32 @@ export  default function Modify(){
       }
     }, [router.query.data]);
   
-    if (!data) {
-      return <div>Loading...</div>; // 데이터가 로드되기 전에 로딩 상태를 표시할 수 있습니다.
-    }
+    // if (!data) {
+    //   return <div>Loading...</div>; // 데이터가 로드되기 전에 로딩 상태를 표시할 수 있습니다.
+    // }
+
+    //탭 !!!! 
+    const handleClick = e => {
+      const index = parseInt(e.target.id, 0);
+      if (index !== active) {
+        setActive(index);
+        // if (index === 0) {
+        //   setCharacterMesh('pixelglasses');
+        //   console.log('set')
+        // }
+      }
+
+    };
+
+    useEffect(()=>{
+      console.log(characterMesh);
+    },[characterMesh]);
+
 
 
     return(
     <>
     <Seo title='modify' />
-       <h1>Modifty</h1>
         <Section>
       <Container>
         <Wrapper>
@@ -84,7 +136,7 @@ export  default function Modify(){
             {/* <Suspense fallback={<Loading/>}> */}
             <mesh>
               {/* <CharacterV4 meshName='face01'/> */}
-              <CharacterV4 meshName='glasses_1'/>
+              <CharacterV4 meshName={characterMesh}/>
             </mesh>
             <Character_All meshName='face02'/>
             <OrbitControls/> {/*3D 모델 축 회전 관련*/}
@@ -100,14 +152,35 @@ export  default function Modify(){
         <Description>
           {/* 카드 */}
           <Card_Container>
-            <h1>dsggdg</h1>
+            {/* 탭메뉴 가져오기 */}
+            <Tabs>
+              <Tab onClick={handleClick} active={active === 0} id={0}>안경</Tab>
+              <Tab onClick={handleClick} active={active === 1} id={1}>헤어</Tab>
+              <Tab onClick={handleClick} active={active === 2} id={2}>눈</Tab>
+            </Tabs>
+
+            {/* 내용 */}
+              <Content active={active === 0}>
+              <div className="border-2 grid grid-cols-4 gap-">
+                <button onClick={setCharacterMesh('pixelglasses')}>픽셀 선글라스</button> 
+                <p>sgd</p>
+                <p>c</p>
+                <p>d</p>
+                <p>s</p>
+                <p>sdgsdg</p>
+              </div>
+            </Content>
+            <Content active={active === 1}>
+              <h1>Content 2</h1>
+            </Content>
+
           </Card_Container>
 
-          {/* 버튼 */}
+          {/* 버튼 --------------------------*/}
           <div className='flex'>
             <p>녹화 하러 가기 </p>
             {/* 링크 */}
-
+            {/* 라우팅 할 때 , zustand 현재 state도 보내버려 */}
             <Link href={{
               pathname: '/recording',
               query: {
