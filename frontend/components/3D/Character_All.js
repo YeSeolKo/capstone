@@ -183,6 +183,7 @@ export default function Character_All(props) {
         );
         break;
     
+        //NOTE - 얼굴
         //얼굴---------------------------------------------
         case 'face01':
             mesh=(
