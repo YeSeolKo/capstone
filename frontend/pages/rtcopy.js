@@ -55,7 +55,10 @@ const Card_ul=tw.ul`my-4 space-y-3`;
 export  default function rtcopy(){
     const router = useRouter();
     const [data, setData] = useState(null);
-    const {glasses,setGlasses}=useStore();
+    const {glasses_state,setGlasses_state}=useStore();
+    const {face_state,setFace_state}=useStore();
+    const {hair_state,setHair_state}=useStore();
+
 
     useEffect(() => {
       if (router.query.data) {
@@ -68,11 +71,12 @@ export  default function rtcopy(){
 
     //setGlasses(상태 관리 )
     useEffect(()=>{
-      if (data && data.glasses_type) {
-        setGlasses(data.glasses_type);
+      if (data && data.glasses_type&&data.face_type&&data) {
+        setGlasses_state(data.glasses_type);
+        setFace_state(data.setFace_state);
         // console.log('예측깂:',glasses);->null
       }
-    }, [data, setGlasses]);
+    }, [data, setGlasses_state]);
 
   
     if (!data) {
@@ -85,7 +89,11 @@ export  default function rtcopy(){
     const glasses_type=data.glasses_type;//O,X
     
     //store에 저장 확인 
-    console.log(glasses);
+    console.log(glasses_state);
+    console.log(face_state);
+    //hair는 리스트..
+    
+    
     
     // hair_type 매칭
     const hair_mesh = [];
