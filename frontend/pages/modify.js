@@ -182,7 +182,7 @@ export  default function Modify(){
             {/* 링크 */}
             {/* 라우팅 할 때 , zustand 현재 state도 보내버려 */}
             <Link href={{
-              pathname: '/recording',
+              pathname: '/recording_tf',
               query: {
                 data: JSON.stringify(data)
               }

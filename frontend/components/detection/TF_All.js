@@ -24,7 +24,11 @@ import * as THREE from "three";
 import Model from '../3D/Model';
 import Lights from '../3D/Lights';
 import Character_All from "../3D/Character_All";
-//css
+//zustand
+import useStore from "../zustand_store/store";
+
+
+// ─── css  ───────────────────────────────────────────────────────────────────────
 const WebcamContainer = styled(Webcam)`
   position: absolute;
   margin-left: auto;
@@ -63,11 +67,20 @@ const Div=styled.div`
   height: 100%;
   transform: scaleX(-1);//좌우반전
 `;
+// ──────────────────────────────────────────────────────────────────────────
 
 export default function TF_All() {
   const webcamRef=useRef();
   const canvasRef=useRef();
   const boxRef=useRef();
+  
+  //zustand
+  // const {glasses_state,setGlasses_state}=useStore();
+  // const {face_state,setFace_state}=useStore();
+  // console.log(glasses_state);
+  // console.log(face_state);
+
+  //타입 전부 가져옴
 
 
     // let kp;

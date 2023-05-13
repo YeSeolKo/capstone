@@ -52,7 +52,7 @@ const Card_ul=tw.ul`my-4 space-y-3`;
 
 // ─────────────────────────────────────────────────────────────────────────────
 
-export  default function rtcopy(){
+export  default function Analyze(){
     const router = useRouter();
     const [data, setData] = useState(null);
     const {glasses_state,setGlasses_state}=useStore();
@@ -133,7 +133,7 @@ export  default function rtcopy(){
   
     return(
         <>
-        <Seo title='rtcopy' />
+        <Seo title='Analyze' />
   
       <Section>
       <Container>
@@ -149,6 +149,9 @@ export  default function rtcopy(){
             {/* 얼굴 */}
             {/* <Suspense fallback={<Loading/>}> */}
             <mesh>
+
+                   {/* 안경유무 - 있으면 안경 렌더링, 없으면null
+                   {glasses_state=='o'?(<Character_All meshName='glasses_1'/>):null} */}
               {/* <CharacterV4 meshName='face01'/> */}
               <CharacterV4 meshName='glasses_1'/>
             </mesh>
@@ -217,7 +220,7 @@ export  default function rtcopy(){
            {/* 링크 */}
 
            <Link href={{
-              pathname: '/recording',
+              pathname: '/recording_tf',
               query: {
                 data: JSON.stringify(data)
               }

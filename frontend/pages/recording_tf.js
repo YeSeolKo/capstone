@@ -18,11 +18,11 @@ const TF_All = dynamic(()=> import ('../components/detection/TF_All'),{
     ssr:false,
     });
     
-export  default function TF_Filter(){
+export  default function Recording_TF(){
     
     return(
         <>
-        <Seo title='TF'></Seo>
+        <Seo title='Recording'></Seo>
         {/* <TF_FaceMeshComponent/> */}
         {/* <TF_Pose/> */}
         <TF_All/>
