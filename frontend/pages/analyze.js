@@ -61,6 +61,7 @@ export  default function Analyze(){
     const {glasses_state,setGlasses_state}=useStore();
     const {face_state,setFace_state}=useStore();
     const {hair_state,setHair_state}=useStore();
+    const {hair_mesh_state,setHairMesh_state}=useStore();
 
 
     //response 데이터파싱 
@@ -77,13 +78,15 @@ export  default function Analyze(){
       if (data && data.glasses_type&&data.face_type&&data.hair_type) {
         setGlasses_state(data.glasses_type);//안경 O,X
         setFace_state(data.face_type); //얼굴 Oval
-        setHair_state(data.hair_type[0]) //헤어 애즈 
+        setHair_state(data.hair_type[0]); //헤어 애즈 
+        setHairMesh_state(data.hair_type[0]); //NOTE - 
       }
     }, [data, setGlasses_state]);
      //store에 저장 확인 
      console.log('store',glasses_state);
      console.log('face',face_state);
-     console.log('hair',hair_state);
+     console.log('디폴트 hair:',hair_state);
+     console.log('바뀐 mesh', hair_mesh_state); //NOTE
      
 
     if (!data) {
@@ -97,6 +100,7 @@ export  default function Analyze(){
 
     //matching함수 쓰고 변수 선언 
     const top1_hair_mesh=hairMeshMatching(hair_type[0]); //fucntion 컴포넌트 함수 사용 !! 
+    //NOTE - state사용해도 될듯 
     
   
     return(

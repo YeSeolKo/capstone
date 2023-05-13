@@ -105,9 +105,9 @@ export  default function Modify(){
     const {glasses_state,setGlasses_state}=useStore();
     const {face_state,setFace_state}=useStore();
     const {hair_state,setHair_state}=useStore();
-    const {hair_mesh_test,setHairMesh_state}=useStore();
+    const {hair_mesh_state,setHairMesh_state}=useStore();
 
-    console.log('헤어 state:',hair_state);
+    console.log('헤어 디폴트 state:',hair_state);
 
     //zustand 새로고침
     
@@ -117,10 +117,10 @@ export  default function Modify(){
     //NOTE - 메쉬 바뀔때마다 rerendering 되고 있음.... 
     function ButtonClick(e){
       const clicked=e.target.id; //
+     
+      setHair_state(clicked);
       console.log('버튼:',clicked);
       setHairMesh_state(clicked);
-      console.log('메쉬:',hair_mesh_test);
-      // console.log('현재state:',hair_mesh);
     };
 
   
@@ -166,7 +166,7 @@ export  default function Modify(){
             {/* <Suspense fallback={<Loading/>}> */}
             <mesh>
               {/* <CharacterV4 meshName='face01'/> */}
-              <Character_All meshName={hair_mesh_test}/>
+              <Character_All meshName={hair_mesh_state}/>
               {/* <CharacterV4 meshName={characterMesh}/> */}
             </mesh>
             <Character_All meshName='face02'/>

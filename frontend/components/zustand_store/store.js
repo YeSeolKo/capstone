@@ -18,15 +18,16 @@ const useStore = create((set) => ({
     hair_state:null,
     setHair_state:(newHair)=>{
       set({hair_state:newHair});
+      console.log('>>>>zu) 현재 state:',newHair);
     },
 
     //헤어 메쉬 바꾸기
-    hair_mesh_test:null,
+    hair_mesh_state:null,
     setHairMesh_state:(hair_state)=>{
       const matching=matching_json[0].헤어스타일[hair_state];
-      set({hair_mesh_test:matching});
-      // console.log('들어온 값:',hair_state); //허쉬
-      // console.log('변환된 메쉬',matching);//hair_30_hush
+      set({hair_mesh_state:matching});
+      console.log('>>>>>>들어온 값:',hair_state); //허쉬
+      console.log('>>>>>>변환된 메쉬',matching);//hair_30_hush
     }
   }));
 

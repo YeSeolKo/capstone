@@ -80,8 +80,9 @@ export default function TF_All() {
   const {glasses_state,setGlasses_state}=useStore();
   const {face_state,setFace_state}=useStore();
   const {hair_state,setHair_state}=useStore();
+  const {hair_mesh_state,setHairMesh_state}=useStore();
   
-  //zustand 새로고침 후에  상태복원
+  // zustand 새로고침 후에  상태복원
   useEffect(() => {
     const savedState = localStorage.getItem('zustandState');
     if (savedState) {
@@ -89,23 +90,22 @@ export default function TF_All() {
       setGlasses_state(parsedState.glasses_state);
       setFace_state(parsedState.face_state);
       setHair_state(parsedState.hair_state);
+      //setHairMesh_state(parsedState.hair_mesh_state); //FIXME - 새로고침 오류 
+   
     }
   }, []);
-
-
-
-
-
-  //zustand 변환
-  //1)안경O -> 
-  //1) hairMeshMatching함수
-  const hair_mesh=hairMeshMatching(hair_state);
-  
 
 
   console.log('안경 state',glasses_state);
   console.log('얼굴 state', face_state);
   console.log('헤어 state', hair_state);
+  console.log('바뀐 메쉬:',hair_mesh_state);//FIXME - 
+  //   useEffect(() => {
+  //   console.log('바뀐 메쉬:',hair_mesh_state);
+  // }, [hair_mesh_state]);
+
+
+
 
   //타입 전부 가져옴
 
@@ -278,10 +278,12 @@ export default function TF_All() {
             {/* 캐릭터 */}
             {/* NOTE - 캐릭터 */}
             <mesh ref={boxRef} >
-
-              {/* <Character_All meshName={}/> */}
+              {/* 얼굴 */}
+              <Character_All meshName='face02'/>
+              
               {/* 헤어 */}
-              <Character_All meshName={hair_mesh}/>
+              {/* FIXME - zustand 대신 함수 사용 */}
+              <Character_All meshName={hairMeshMatching(hair_state)}/> 
               {/* <Character_All meshName='glasses_1'/>
               <Character_All meshName='face02'/> */}
             </mesh>

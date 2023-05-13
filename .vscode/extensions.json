@@ -1,3 +1,7 @@
 {
-  "recommendations": ["github.copilot", "GitHub.copilot-chat"]
+  "recommendations": [
+    "github.copilot",
+    "github.copilot-chat",
+    "GitHub.copilot-nightly"
+  ]
 }
