@@ -28,6 +28,9 @@ import useStore from '../components/zustand_store/store';
 //json파일
 import matching_json from'../public/json/chracter_matching.json';
 
+//함수
+import hairMeshMatching from '../components/function/hairMeshMatching';
+
 // ─── css  ───────────────────────────────────────────────────────────────────────
 //배경색
 // const SkyBackground = tw.div`
@@ -60,75 +63,40 @@ export  default function Analyze(){
     const {hair_state,setHair_state}=useStore();
 
 
+    //response 데이터파싱 
     useEffect(() => {
       if (router.query.data) {
         setData(JSON.parse(router.query.data));
-        //처음 마운트 됐을때만
       } else {
         // router.query.data 값이 없을 때의 처리 로직 작성
       }
     }, [router.query.data]);
 
-    //setGlasses(상태 관리 )
+    //NOTE store에 저장
     useEffect(()=>{
-      if (data && data.glasses_type&&data.face_type&&data) {
-        setGlasses_state(data.glasses_type);
-        setFace_state(data.setFace_state);
-        // console.log('예측깂:',glasses);->null
+      if (data && data.glasses_type&&data.face_type&&data.hair_type) {
+        setGlasses_state(data.glasses_type);//안경 O,X
+        setFace_state(data.face_type); //얼굴 Oval
+        setHair_state(data.hair_type[0]) //헤어 애즈 
       }
     }, [data, setGlasses_state]);
+     //store에 저장 확인 
+     console.log('store',glasses_state);
+     console.log('face',face_state);
+     console.log('hair',hair_state);
+     
 
-  
     if (!data) {
       return <div>Loading...</div>; // 데이터가 로드되기 전에 로딩 상태를 표시할 수 있습니다.
     }
 
     //json parsing해서 변수 선언 ----
-    const hair_list=data.hair_type; //리스트
-    const face_type=data.face_type;
+    const hair_type=data.hair_type; //리스트
+    const face_type=data.face_type; //얼굴형
     const glasses_type=data.glasses_type;//O,X
-    
-    //store에 저장 확인 
-    console.log(glasses_state);
-    console.log(face_state);
-    //hair는 리스트..
-    
-    
-    
-    // hair_type 매칭
-    const hair_mesh = [];
-    const hair_type =[];
-    for (let i = 0; i < hair_list.length; i++) {
-      const hair_type_i = hair_list[i];
-      const hair_mesh_i = matching_json[0].헤어스타일[hair_type_i];
-      hair_type.push(hair_type_i);
-      hair_mesh.push(hair_mesh_i);
-    }
-    console.log(hair_mesh)
 
- 
-
-
-
-
-
-    // 매개변수 glasses_type을 사용하여 setGlasses 함수 호출 및 glasses 상태 업데이트
-    //setGlasses(glasses_type);
-
-    
-    // const { glasses, setGlasses } = useStore();
-
-    // useEffect(() => {
-    //   // Call setGlasses to update the glasses state
-    //   setGlasses(glasses_type);
-    // }, [glasses_type, setGlasses]);
-
-  // 업데이트된 glasses 상태 콘솔에 출력
-  //  console.log({glasses});
-
-
-    
-
+    //matching함수 쓰고 변수 선언 
+    const top1_hair_mesh=hairMeshMatching(hair_type[0]); //fucntion 컴포넌트 함수 사용 !! 
     
   
     return(
@@ -146,16 +114,17 @@ export  default function Analyze(){
             <Text position={[0, 0, 0]} fontSize={1}>Hello,World !</Text>
 
             {/* 캐릭터------------- */}
-            {/* 얼굴 */}
             {/* <Suspense fallback={<Loading/>}> */}
             <mesh>
-
-                   {/* 안경유무 - 있으면 안경 렌더링, 없으면null
-                   {glasses_state=='o'?(<Character_All meshName='glasses_1'/>):null} */}
-              {/* <CharacterV4 meshName='face01'/> */}
-              <CharacterV4 meshName='glasses_1'/>
+              { /* 안경 */}
+              {/* 안경 있으면 렌더링 */}
+              {glasses_type=='O'?(<Character_All meshName='glasses_1'/>):null}
+              {/* 얼굴 */}
+              <Character_All meshName='face02'/>
+              {/* 헤어 */}
+              <Character_All meshName={top1_hair_mesh}/>
+              
             </mesh>
-            <Character_All meshName='face02'/>
             <OrbitControls/> {/*3D 모델 축 회전 관련*/}
             {/* </Suspense> */}
 

@@ -26,6 +26,8 @@ import Lights from '../3D/Lights';
 import Character_All from "../3D/Character_All";
 //zustand
 import useStore from "../zustand_store/store";
+//함수
+import hairMeshMatching from "../function/hairMeshMatching";
 
 
 // ─── css  ───────────────────────────────────────────────────────────────────────
@@ -75,10 +77,34 @@ export default function TF_All() {
   const boxRef=useRef();
   
   //zustand
-  // const {glasses_state,setGlasses_state}=useStore();
-  // const {face_state,setFace_state}=useStore();
-  // console.log(glasses_state);
-  // console.log(face_state);
+  const {glasses_state,setGlasses_state}=useStore();
+  const {face_state,setFace_state}=useStore();
+  const {hair_state,setHair_state}=useStore();
+  //zustand 새로고침 후에  상태복원
+  useEffect(() => {
+    const savedState = localStorage.getItem('zustandState');
+    if (savedState) {
+      const parsedState = JSON.parse(savedState);
+      setGlasses_state(parsedState.glasses_state);
+      setFace_state(parsedState.face_state);
+      setHair_state(parsedState.hair_state);
+    }
+  }, []);
+
+
+
+
+
+  //zustand 변환
+  //1)안경O -> 
+  //1) hairMeshMatching함수
+  const hair_mesh=hairMeshMatching(hair_state);
+  
+
+
+  console.log('안경 state',glasses_state);
+  console.log('얼굴 state', face_state);
+  console.log('헤어 state', hair_state);
 
   //타입 전부 가져옴
 
@@ -109,7 +135,7 @@ export default function TF_All() {
       //webcam, canvas 확인
       if(webcamRef.current && canvasRef.current && detector){
         const webcamCurrent=webcamRef.current;
-        //webcam의 reacyState(현재 로드 상태===4일때,비디오 로드,재생가능할 때)
+        //webcam의 reacyState(현재 로드 상태===일때,비디오 로드,재생가능할 때)
         if(webcamCurrent.video.readyState === 4){
           //Get Video property 
           const video=webcamRef.current.video;
@@ -175,7 +201,7 @@ export default function TF_All() {
         boxRef.current.position.x=position_x;
         boxRef.current.position.y=position_y;
         boxRef.current.position.z=position_z;
-        console.log(boxRef.current.position.x)
+        console.log('>>>>>>>> x좌표:', boxRef.current.position.x)
 
 
 
@@ -246,17 +272,16 @@ export default function TF_All() {
           <Div>
           <Canvas camera={{ position:[0,0,4.75],fov:45}} >
             {/* <Rig> */}
-            {/* <mesh ref={boxRef} scale={[2,2,1]}>
-              <boxBufferGeometry args={[1,1,1]} />
-              <meshBasicMaterial color={'black'}/>
-            </mesh> */}
-            {/* <box ref={boxRef} scale={[0.1, 0.1, 0.1]} position={[0, 0, -1]} /> */}
-            
             {/* //오래걸림 */}
             <Lights/>
+            {/* 캐릭터 */}
             <mesh ref={boxRef} >
-              <Character_All meshName='glasses_1'/>
-              <Character_All meshName='face02'/>
+
+              {/* <Character_All meshName={}/> */}
+              {/* 헤어 */}
+              <Character_All meshName={hair_mesh}/>
+              {/* <Character_All meshName='glasses_1'/>
+              <Character_All meshName='face02'/> */}
             </mesh>
             {/* </Rig> */}
           </Canvas>

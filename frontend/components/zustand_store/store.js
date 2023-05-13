@@ -20,5 +20,15 @@ const useStore = create((set) => ({
       set({hair_state:newHair});
     },
   }));
-  
+
+
+//NOTE 새로고침 - 사라지지 않게 
+// 새로고침 시 Zustand 상태를 로컬 스토리지에 저장
+useStore.subscribe(
+  (snapshot) => {
+    localStorage.setItem('zustandState', JSON.stringify(snapshot));
+  },
+  (state) => state
+);
+
 export default useStore;
