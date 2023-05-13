@@ -23,6 +23,12 @@ import react from 'react';
 import Character_All from '../components/3D/Character_All';
 import CharacterV4 from '../components/3D/CharacterV4';
 
+//zustand
+import useStore from '../components/zustand_store/store';
+
+//함수
+import hairMeshMatching from '../components/function/hairMeshMatching';
+
 // ─── css  ───────────────────────────────────────────────────────────────────────
 //배경색
 // const SkyBackground = tw.div`
@@ -94,10 +100,34 @@ export  default function Modify(){
         // router.query.data 값이 없을 때의 처리 로직 작성
       }
     }, [router.query.data]);
+
+    //zustand
+    const {glasses_state,setGlasses_state}=useStore();
+    const {face_state,setFace_state}=useStore();
+    const {hair_state,setHair_state}=useStore();
+    const {hair_mesh_test,setHairMesh_state}=useStore();
+
+    console.log('헤어 state:',hair_state);
+
+    //zustand 새로고침
+    
+
   
-    // if (!data) {
-    //   return <div>Loading...</div>; // 데이터가 로드되기 전에 로딩 상태를 표시할 수 있습니다.
-    // }
+    //헤어 메쉬 바꾸기(hair_type넣으면 , 매칭 해서 , mesh swap? )
+    //NOTE - 메쉬 바뀔때마다 rerendering 되고 있음.... 
+    function ButtonClick(e){
+      const clicked=e.target.id; //
+      console.log('버튼:',clicked);
+      setHairMesh_state(clicked);
+      console.log('메쉬:',hair_mesh_test);
+      // console.log('현재state:',hair_mesh);
+    };
+
+  
+
+
+
+
 
     //탭 !!!! 
     const handleClick = e => {
@@ -136,7 +166,8 @@ export  default function Modify(){
             {/* <Suspense fallback={<Loading/>}> */}
             <mesh>
               {/* <CharacterV4 meshName='face01'/> */}
-              <CharacterV4 meshName={characterMesh}/>
+              <Character_All meshName={hair_mesh_test}/>
+              {/* <CharacterV4 meshName={characterMesh}/> */}
             </mesh>
             <Character_All meshName='face02'/>
             <OrbitControls/> {/*3D 모델 축 회전 관련*/}
@@ -162,7 +193,7 @@ export  default function Modify(){
             {/* 내용 */}
               <Content active={active === 0}>
               <div className="border-2 grid grid-cols-4 gap-">
-                <button onClick={setCharacterMesh('pixelglasses')}>픽셀 선글라스</button> 
+                {/* <button onClick={setCharacterMesh('pixelglasses')}>픽셀 선글라스</button>  */}
                 <p>sgd</p>
                 <p>c</p>
                 <p>d</p>
@@ -171,7 +202,9 @@ export  default function Modify(){
               </div>
             </Content>
             <Content active={active === 1}>
-              <h1>Content 2</h1>
+              <button id="가르마" onClick={ButtonClick}>가르마</button>
+              <button id="똥머리" onClick={ButtonClick}>똥머리</button>
+              
             </Content>
 
           </Card_Container>

@@ -80,6 +80,7 @@ export default function TF_All() {
   const {glasses_state,setGlasses_state}=useStore();
   const {face_state,setFace_state}=useStore();
   const {hair_state,setHair_state}=useStore();
+  
   //zustand 새로고침 후에  상태복원
   useEffect(() => {
     const savedState = localStorage.getItem('zustandState');
@@ -275,6 +276,7 @@ export default function TF_All() {
             {/* //오래걸림 */}
             <Lights/>
             {/* 캐릭터 */}
+            {/* NOTE - 캐릭터 */}
             <mesh ref={boxRef} >
 
               {/* <Character_All meshName={}/> */}
