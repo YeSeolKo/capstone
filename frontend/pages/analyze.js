@@ -22,6 +22,7 @@ import tw from 'tailwind-styled-components';
 import { Canvas } from '@react-three/fiber';
 import { Text } from '@react-three/drei';
 
+
 //zustand
 import useStore from '../components/zustand_store/store';
 
@@ -30,6 +31,8 @@ import matching_json from'../public/json/chracter_matching.json';
 
 //함수
 import hairMeshMatching from '../components/function/hairMeshMatching';
+
+// import BMJUA from '../public/fonts/BMJUA_ttf.ttf';
 
 // ─── css  ───────────────────────────────────────────────────────────────────────
 //배경색
@@ -62,6 +65,7 @@ export  default function Analyze(){
     const {face_state,setFace_state}=useStore();
     const {hair_state,setHair_state}=useStore();
     const {hair_mesh_state,setHairMesh_state}=useStore();
+    const {glassesMesh_state,setGlassesMesh_state}=useStore();
 
 
     //response 데이터파싱 
@@ -81,7 +85,7 @@ export  default function Analyze(){
         setHair_state(data.hair_type[0]); //헤어 애즈 
         setHairMesh_state(data.hair_type[0]); //NOTE - 
       }
-    }, [data, setGlasses_state]);
+    }, [data, setGlasses_state,setFace_state,setHair_state,setHairMesh_state]);
      //store에 저장 확인 
      console.log('store',glasses_state);
      console.log('face',face_state);
@@ -91,16 +95,19 @@ export  default function Analyze(){
 
     if (!data) {
       return <div>Loading...</div>; // 데이터가 로드되기 전에 로딩 상태를 표시할 수 있습니다.
-    }
+    };
 
     //json parsing해서 변수 선언 ----
     const hair_type=data.hair_type; //리스트
     const face_type=data.face_type; //얼굴형
     const glasses_type=data.glasses_type;//O,X
 
+
     //matching함수 쓰고 변수 선언 
     const top1_hair_mesh=hairMeshMatching(hair_type[0]); //fucntion 컴포넌트 함수 사용 !! 
     //NOTE - state사용해도 될듯 
+
+    const user='USER';
     
   
     return(
@@ -111,11 +118,13 @@ export  default function Analyze(){
       <Container>
         <Wrapper>
         {/* 캔버스------------------------- */}
-        <div className='lg:w-1/2 w-full border-4 lg:h-auto h-64 object-cover object-center rounded'>
-          <Canvas className=''>
+        <div className='rounded-3xl bg-white shadow-lg lg:w-1/2 w-full border-4 lg:h-auto h-64 object-cover object-center rounded'>
+          <Canvas >
             <ambientLight intensity={1} />
             <spotLight intensity={0.5} angle={0.1} penumbra={1} position={[10, 15, 10]} castShadow />
-            <Text position={[0, 0, 0]} fontSize={1}>Hello,World !</Text>
+            {/* //NOTE - 한글폰트 */}
+            <Text position={[0, 2.5, 0]} fontSize={1} outlineColor="black"outlineWidth={0.02} >
+            Hello, World! </Text> 
 
             {/* 캐릭터------------- */}
             {/* <Suspense fallback={<Loading/>}> */}
@@ -140,28 +149,31 @@ export  default function Analyze(){
 
         {/* 왼쪽 ---------------------------*/}
         <Description>
-          <div className='border-4'>
-          <h1 className='font-gmarket'>분석결과</h1>
+          <div className='border-2 rounded-md p-4'>
+          <h1 className='font-gmarket text-3xl'>분석 결과 </h1>
           </div>
           
 
           {/* 카드 */}
           <Card_Container>
-            <h5 className='mb-3 text-base font-semibold text-gray-900 md:text-xl dark:text-white'> Results</h5>
+            <div className='bg-gray-100 rounded-md '>
+              <p className='font-gmarket text-3xl '>{user}</p> 
+            </div>
+
             <Card_ul>
               <li className='grid grid-flow-col '>
-                <h2 className='font-gmarket'>안경</h2>
+                <h1 className='font-gmarket underline decoration-4 decoration-blue-500/50 underline-offset-4'>안경</h1>
                 <h2 className='font-gmarket'>{glasses_type}</h2>
               </li>
 
               <li className='grid grid-flow-col '>
-                <h2 className='font-gmarket'>얼굴형</h2>
+                <h1 className='font-gmarket underline decoration-4 decoration-blue-500/50 underline-offset-4'>얼굴형</h1>
                 <h2 className='font-gmarket'>{face_type}</h2>
               </li>
 
               <li>
                 {/* 헤어스타일 Top5보여주기 */}
-                <h2 className='font-gmarket '>헤어 스타일 Top5</h2>
+                <h1 className='font-gmarket my-4 underline decoration-4 decoration-pink-500/50 underline-offset-8'>헤어 스타일 Top5</h1>
                 <div className='flex gap-4'>
                   <h3 className='font-gmarket'>1. {hair_type[0]}</h3>
                   <h3 className='font-gmarket'>2. {hair_type[1]}</h3>
@@ -171,25 +183,25 @@ export  default function Analyze(){
                 </div>
               </li>
             </Card_ul>
+            
           </Card_Container>
 
           {/* 버튼 */}
-          <div className='flex'>
-            <p>수정하러 가기 버튼 </p>
+          <div className='flex m-2'>
+            <h3 className='font-gmarket'>수정하러 가기 </h3>
             {/* 링크 */}
-
             <Link href={{
               pathname: '/modify',
               query: {
                 data: JSON.stringify(data)
               }
             }}>
-          <button className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">수정</button>
+          <button className="font-gmarket flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">수정</button>
           </Link>
         </div>
 
-        <div className='flex'>
-          <p>녹화 하러 가기 버튼</p>
+        <div className='flex m-2'>
+          <h3 className='font-gmarket'>녹화 하러 가기 </h3>
            {/* 링크 */}
 
            <Link href={{
@@ -198,7 +210,7 @@ export  default function Analyze(){
                 data: JSON.stringify(data)
               }
             }}>
-               <button className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">녹화</button>
+               <button className="font-gmarket flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">녹화</button>
    
           </Link>
 

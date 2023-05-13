@@ -86,7 +86,7 @@ def detection(img_path):
         message='O'
         print('안경 O')
     else:
-        message='x'
+        message='X'
         print('안경X')
     
     return message

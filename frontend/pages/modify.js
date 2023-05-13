@@ -47,9 +47,12 @@ const Image = tw.img`lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center r
 const Description=tw.div`lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0`;
 
 
-//Card
-const Card_Container = tw.div`my-8 w-full p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 dark:bg-gray-800 dark:border-gray-700`;
+//Tab
+const Tab_Container = tw.div` w-full p-4 bg-white border border-gray-200 rounded-xl shadow-md sm:p-6 dark:bg-gray-800 dark:border-gray-700`;
 const Card_ul=tw.ul`my-4 space-y-3`;
+
+//Tab 내부 텍스트
+const Button=tw.button `text-xl font-bmjua my-4`;
 
 
 //TAB
@@ -61,6 +64,8 @@ const Tabs = styled.div`
 `;
 
 const Tab = styled.button`
+  font-family: 'gmarket';
+  font-size: large; 
   border: none;
   outline: none;
   cursor: pointer;
@@ -68,7 +73,7 @@ const Tab = styled.button`
   position: relative;
 
   margin-right: 0.1em;
-  font-size: 1em;
+  /* font-size: 1em; */
   border: ${props => (props.active ? "1px solid #ccc" : "")};
   border-bottom: ${props => (props.active ? "none" : "")};
   background-color: ${props => (props.active ? "white" : "lightgray")};
@@ -105,7 +110,9 @@ export  default function Modify(){
     const {glasses_state,setGlasses_state}=useStore();
     const {face_state,setFace_state}=useStore();
     const {hair_state,setHair_state}=useStore();
-    const {hair_mesh_state,setHairMesh_state}=useStore();
+    const {glasses_mesh_state,setGlassesMesh_state}=useStore();//안경
+    const {hair_mesh_state,setHairMesh_state}=useStore();//헤어 메쉬 변환
+    
 
     console.log('헤어 디폴트 state:',hair_state);
 
@@ -113,7 +120,17 @@ export  default function Modify(){
     
 
   
-    //헤어 메쉬 바꾸기(hair_type넣으면 , 매칭 해서 , mesh swap? )
+    //메쉬 바꾸기
+    //1)
+    function GlassesButtonClick(e){
+      const clicked=e.target.id;
+      //기본 state바꿔야함? 
+      
+      console.log('버튼:',clicked);
+      setGlassesMesh_state(clicked);
+    };
+
+    //2)
     //NOTE - 메쉬 바뀔때마다 rerendering 되고 있음.... 
     function ButtonClick(e){
       const clicked=e.target.id; //
@@ -155,21 +172,24 @@ export  default function Modify(){
       <Container>
         <Wrapper>
         {/* 캔버스------------------------- */}
-        <div className='lg:w-1/2 w-full border-4 lg:h-auto h-64 object-cover object-center rounded'>
-          <Canvas className=''>
+        <div className='rounded-3xl bg-white shadow-lg lg:w-1/2 w-full border-4 lg:h-auto h-64 object-cover object-center rounded'>
+          <Canvas >
             <ambientLight intensity={1} />
             <spotLight intensity={0.5} angle={0.1} penumbra={1} position={[10, 15, 10]} castShadow />
-            <Text position={[0, 0, 0]} fontSize={1}>Hello,World !</Text>
+            
 
             {/* 캐릭터------------- */}
             {/* 얼굴 */}
             {/* <Suspense fallback={<Loading/>}> */}
             <mesh>
-              {/* <CharacterV4 meshName='face01'/> */}
+              {/* 안경 */}
+              {/* //FIXME - 안경메쉬 처음에? */}
+              <Character_All meshName={glasses_mesh_state}/>
+              {/* 얼굴 */}
+              <Character_All meshName='face02'/>
+              {/* 헤어 */}
               <Character_All meshName={hair_mesh_state}/>
-              {/* <CharacterV4 meshName={characterMesh}/> */}
             </mesh>
-            <Character_All meshName='face02'/>
             <OrbitControls/> {/*3D 모델 축 회전 관련*/}
             {/* </Suspense> */}
 
@@ -181,8 +201,8 @@ export  default function Modify(){
 
         {/* 왼쪽 ---------------------------*/}
         <Description>
-          {/* 카드 */}
-          <Card_Container>
+          {/* 탭메뉴  */}
+          <Tab_Container>
             {/* 탭메뉴 가져오기 */}
             <Tabs>
               <Tab onClick={handleClick} active={active === 0} id={0}>안경</Tab>
@@ -190,24 +210,55 @@ export  default function Modify(){
               <Tab onClick={handleClick} active={active === 2} id={2}>눈</Tab>
             </Tabs>
 
-            {/* 내용 */}
-              <Content active={active === 0}>
-              <div className="border-2 grid grid-cols-4 gap-">
-                {/* <button onClick={setCharacterMesh('pixelglasses')}>픽셀 선글라스</button>  */}
-                <p>sgd</p>
-                <p>c</p>
-                <p>d</p>
-                <p>s</p>
-                <p>sdgsdg</p>
+            {/* NOTE 안경 */}
+            <Content active={active === 0}>
+            <div className="p-4 border-2 grid grid-cols-4 gap-">
+              <Button id="NONE" onClick={GlassesButtonClick}> None</Button>
+              <Button id="기본안경" onClick={GlassesButtonClick}>기본 안경</Button>
+              <Button id="뿔테안경" onClick={GlassesButtonClick}>뿔테 안경</Button>
+              {/* //FIXME - 뿔테안경 눌렀다가 픽셀 선글라스 누르면 안보임 */}
+              <Button id="픽셀선글라스" onClick={GlassesButtonClick}>픽셀 선글라스</Button>
+            </div>
+          </Content>
+
+            {/* NOTE 헤어 */}
+            <Content active={active === 1}>
+              <div className="p-4 border-2 grid grid-cols-4 gap-">
+                <Button id="가르마" onClick={ButtonClick}>가르마</Button>
+                <Button id="기타남자스타일" onClick={ButtonClick}>기타 남자스타일</Button>
+                <Button id="기타레이어드" onClick={ButtonClick}>기타 레이어드</Button>
+                <Button id="남자일반숏" onClick={ButtonClick}>남자일반숏</Button>
+                <Button id="댄디" onClick={ButtonClick}>댄디</Button>
+                <Button id="루프" onClick={ButtonClick}>루프</Button>
+                <Button id="리젠트" onClick={ButtonClick}>리젠트</Button>
+                <Button id="리프" onClick={ButtonClick}>리프</Button>
+                <Button id="미스티" onClick={ButtonClick}>미스티</Button>
+                <Button id="바디" onClick={ButtonClick}>바디</Button>
+                <Button id="베이비" onClick={ButtonClick}>베이비</Button>
+                <Button id="보니" onClick={ButtonClick}>보니</Button>
+                <Button id="보브" onClick={ButtonClick}>보브</Button>
+                <Button id="빌드" onClick={ButtonClick}>빌드</Button>
+                <Button id="소프트투블럭댄디" onClick={ButtonClick}>소프트투블럭댄디</Button>
+                <Button id="숏단발" onClick={ButtonClick}>숏단발</Button>
+                <Button id="쉐도우" onClick={ButtonClick}>쉐도우</Button>
+                <Button id="쉼표" onClick={ButtonClick}>쉼표</Button>
+                <Button id="스핀스왈로" onClick={ButtonClick}>스핀스왈로</Button>
+                <Button id="애즈" onClick={ButtonClick}>애즈</Button>
+                <Button id="에어" onClick={ButtonClick}>에어</Button>
+                <Button id="여자일반숏" onClick={ButtonClick}>여자일반숏</Button>
+                <Button id="원랭스" onClick={ButtonClick}>원랭스</Button>
+                <Button id="원블럭댄디" onClick={ButtonClick}>원블럭댄디</Button>
+                <Button id="테슬" onClick={ButtonClick}>테슬</Button>
+                <Button id="포마드" onClick={ButtonClick}>포마드</Button>
+                <Button id="플리츠" onClick={ButtonClick}>플리츠</Button>
+                <Button id="허쉬" onClick={ButtonClick}>허쉬</Button>
+                <Button id="히피" onClick={ButtonClick}>히피</Button>
+                <Button id="똥머리" onClick={ButtonClick}>똥머리</Button>
+                <Button id="hair_EX_male" onClick={ButtonClick}>hair_EX_male</Button>
               </div>
             </Content>
-            <Content active={active === 1}>
-              <button id="가르마" onClick={ButtonClick}>가르마</button>
-              <button id="똥머리" onClick={ButtonClick}>똥머리</button>
-              
-            </Content>
 
-          </Card_Container>
+          </Tab_Container>
 
           {/* 버튼 --------------------------*/}
           <div className='flex'>

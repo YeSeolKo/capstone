@@ -81,6 +81,7 @@ export default function TF_All() {
   const {face_state,setFace_state}=useStore();
   const {hair_state,setHair_state}=useStore();
   const {hair_mesh_state,setHairMesh_state}=useStore();
+  const {glasses_mesh_state,setGlassesMesh_state}=useStore();
   
   // zustand 새로고침 후에  상태복원
   useEffect(() => {
@@ -278,6 +279,8 @@ export default function TF_All() {
             {/* 캐릭터 */}
             {/* NOTE - 캐릭터 */}
             <mesh ref={boxRef} >
+              {/* 안경 */}
+              <Character_All meshName={glasses_mesh_state}/>
               {/* 얼굴 */}
               <Character_All meshName='face02'/>
               
