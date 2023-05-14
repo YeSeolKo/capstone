@@ -148,15 +148,21 @@ export default function webcam(){
     // }
     //------------------------------------------------
 
+
+
+    
+
   return (
     <>
       <Seo title='Webcam'></Seo>
       
       {/* <WebcamCapture/>           */}
+      
 
     
     <BackWebcam>
       <Webcamcontainer> 
+          
             <WebcamImage> 
                 {image == '' ? <Webcam
                     audio={false}
@@ -171,7 +177,7 @@ export default function webcam(){
                     }}
                 /> : <img src={image} />}   
             </WebcamImage>
-            <p className='m-2 font-bmjua text-sm text-left'> 📢 * 카메라 화질에 따라 결과물이 달라질 수 있습니다</p>
+            <p className='m-2 font-bmjua text-md text-left'> 📢 * 카메라 화질에 따라 결과물이 달라질 수 있습니다</p>
 
             <WebcamBtnContainer>
                 {/* 조건문 image가 있으면 true 재촬영버튼 띄우기(이미 캡처완료),false:캡쳐버튼 활성화*/}

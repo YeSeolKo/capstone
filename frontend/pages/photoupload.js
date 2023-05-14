@@ -108,7 +108,7 @@ const sendForm=()=>{
     </div>
 
         {/* 사진업로드- label로 input 버튼 생성 */}
-        <label className='text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700' 
+        <label className='font-gmarket text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700' 
                htmlFor='inputFile'>사진 선택</label>
         {/* input태그 숨김  */}
         <input
@@ -122,7 +122,8 @@ const sendForm=()=>{
         {/* imageSrc있으면 버튼 보여주기 */}
         {/* 조건문 image가 있으면 true 재촬영버튼 띄우기(이미 캡처완료),false:캡쳐버튼 활성화*/}
         {/* 업로드 버튼 누르면 파일(blob파일) flask에 전송 */}
-        {image !=''? ( <button onClick={()=>sendForm()}>업로드</button>) :null}
+        {image !=''? ( <button className='font-gmarket text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-blue-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 '
+                                             onClick={()=>sendForm()}>업로드</button>) :null}
     </BackCard>
     </>
   );

@@ -4,8 +4,13 @@ import { useGLTF } from '@react-three/drei'
 export default function Character_All(props) {
     const group = useRef();
     const { nodes: nodes_v4, materials: materials_v4 } = useGLTF('/characterv4.glb');
-    const { nodes: nodes_v5, materials:materials_v5 } = useGLTF('/characterv5.glb');
+    const { nodes: nodes_v5, materials:materials_v5 } = useGLTF('/characterv5.glb'); //눈 모음
     const { nodes: nodes_onelength, materials:materials_onelength } = useGLTF('/3dParts/new_one_length.glb');
+    const { nodes:nodes_brow, materials:materials_brow } = useGLTF('/3dParts/brow.glb');
+    const { nodes:nodes_eye_1, materials:materials_eye_1 } = useGLTF('/3dParts/eye_1.glb');
+    const { nodes:nodes_eye_2, materials:materials_eye_2 } = useGLTF('3dParts/eye_2.glb');
+    const { nodes:nodes_eyeline, materials:materials_eyeline } = useGLTF('3dParts/eyeline.glb');
+    const { nodes:nodes_md_hair, materials:materials_md_hair } = useGLTF('3dParts/md_hair.glb');
 
     
     //조건 case 작성 !------------
@@ -34,6 +39,59 @@ export default function Character_All(props) {
                 </mesh>
             );
             break;
+
+
+        //NOTE - 눈────────────────────────────────────────
+        case 'eye_blue':
+            mesh=(
+                <group>
+                {/* //오른쪽 */}
+                <mesh geometry={nodes_v5.blue_eye.geometry} material={materials_v5['chibi_template_2_eyes.002']} position={[0.39, 0.42, 0.62]} scale={0.06} />
+                </group>
+            );
+            break;
+        case 'eye_brown':
+            mesh=(
+                // 오른쪽
+                <mesh geometry={nodes_v5.brown_eye_right.geometry} material={materials_v5['chibi_template_1_eyes.001']} position={[0.08, -1.24, 0.23]} scale={0.06} />
+            );
+            break;
+        case 'eye_1':
+            //양쪽 눈 object
+            mesh=(
+                <mesh geometry={nodes_eye_1.EYES1_EYES1_0001.geometry} material={materials_eye_1['EYES1.001']} 
+                position={[0.04, 0.4, 0.6]} rotation={[-0.45, -0.04, 3.13]} scale={0.63} />
+            );
+            break;
+        case 'eye_2':
+            mesh=(
+                //까만 눈 오른쪽 
+                <mesh geometry={nodes_eye_2.Sphere.geometry} material={materials_eye_2['Material.001']} 
+                position={[0.3,0.4,0.65]} scale={0.2} />
+            );
+            break;
+        //NOTE - 눈썹(eye brow)─────────────────────────────────
+        case 'brow':
+            mesh=(
+                //오른쪽
+                <mesh geometry={nodes_brow.eye_brows_right.geometry} material={materials_brow['eyebrows.002']} 
+                position={[0.4, 0.55, 0.64]} rotation={[-0.21, -0.38, -0.01]} scale={0.41} />
+
+            );
+            break;
+        // NOTE 아이라인(eye_line)─────────────────────────────────
+        case 'eyeline':
+            //오른쪽
+            mesh=(
+                <mesh geometry={nodes_eyeline.lashes002.geometry} material={materials_eyeline['eyebrows.001']} 
+                position={[0.3, 0.515, 0.68]} rotation={[-0.91, -0.13, -0.14]} scale={0.55} />
+            );
+            break;
+        
+
+         
+
+
         //NOTE - 픽셀 선글라스────────────────────────────────────────
         case 'pixelglasses':
             mesh = (
@@ -245,6 +303,14 @@ export default function Character_All(props) {
             
         );
         break;
+        //단발머리
+        case 'md_hair':
+            mesh=(
+                  <mesh geometry={nodes_md_hair.HAIR_HAIR_0001.geometry} material={materials_md_hair['HAIR.001']} 
+                  position={[0.05, 0.3, 0.1]} scale={0.7} 
+                  material-color="black"/>
+            );
+            break;
 
         
         //그냥 앞머리 -------------------------------------------------------
