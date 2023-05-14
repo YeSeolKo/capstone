@@ -13,15 +13,15 @@ import BackWebcam from '../components/home/BackWebcam';
 const Webcamcontainer=tw.div`
     
     
-    `
+    `;
 const WebcamImage=tw.div`
-    `
+    `;
     //가운데 정렬
 const WebcamBtnContainer=tw.div`
     p-4
     flex justify-center
     items-center
-`
+`;
 const CaptureBtn=tw.button`
     inline-block
     px-6
@@ -41,9 +41,10 @@ const CaptureBtn=tw.button`
     duration-150
     ease-in-out
 
-`
+`;
 
 const OKbtn=tw.button`
+    font-bmjua
     inline-block
     px-6
     py-2.5
@@ -65,14 +66,15 @@ const OKbtn=tw.button`
     transition
     duration-150
     ease-in-out
-`
-// ─────────────────────────────────────────────────────────────────────────────
+`;
 
-const videoConstraints = {
-  width: 1280, //NOTE - width조절!
-  height: 720, //NOTE - heigth 조절! 
-  facingMode: 'user'
-};
+// ─────────────────────────────────────────────────────────────────────────────
+//FIXME 
+// const videoConstraints = {
+//   width: 1280, //NOTE - width조절!
+//   height: 720, //NOTE - heigth 조절! 
+//   facingMode: 'user'
+// };
 
 export default function webcam(){
   const[image,setImage]=useState('');
@@ -104,7 +106,7 @@ export default function webcam(){
     const sendForm=()=>{
         const formData = new FormData(); //formData객체 생성
         const blob = dataURItoBlob(image); // dataURI to Blob 변환
-        formData.append('capturedImage',blob); //Blob 파일 formData로 전송 
+        formData.append('webcamImage',blob); //Blob 파일 formData로 전송 
         const config={
             headers:{
                 'Content-type':'multipart/form-data',
@@ -117,10 +119,10 @@ export default function webcam(){
     // + api로 보내는 것 대신, 직접 flask서버로 보내기 
 
     //flask : postImage----------------------------------
-    axios.post('http://127.0.0.1:5000/postImage',formData,config)
+    axios.post('http://127.0.0.1:5000/webcamImage',formData,config)
             .then((res)=>{ //axios.post 성공시
                 console.log(res.data);//json메시지 들어옴 
-                alert(res.data.message);
+                alert(res.data.glasses_type);
                 
                  //router.push: ok버튼 누르면 페이지 이동
                 router.push({
@@ -152,19 +154,24 @@ export default function webcam(){
       
       {/* <WebcamCapture/>           */}
 
+    
     <BackWebcam>
-      <Webcamcontainer>  
+      <Webcamcontainer> 
             <WebcamImage> 
                 {image == '' ? <Webcam
                     audio={false}
-                    height={400} //NOTE - 조절!!!
+                    height={500} //NOTE - 조절!!!
                     ref={webcamRef}
                     screenshotFormat="image/jpeg"
-                    width={400} //NOTE - 조절!!!!
+                    width={500} //NOTE - 조절!!!!
                     // img src ={imag} -> 캡쳐한 이미지 
-                    videoConstraints={videoConstraints}
+                    mirrored={true}
+                    videoConstraints={{
+                        facingMode:"user",//전면카메라
+                    }}
                 /> : <img src={image} />}   
             </WebcamImage>
+            <p className='m-2 font-bmjua text-sm text-left'> 📢 * 카메라 화질에 따라 결과물이 달라질 수 있습니다</p>
 
             <WebcamBtnContainer>
                 {/* 조건문 image가 있으면 true 재촬영버튼 띄우기(이미 캡처완료),false:캡쳐버튼 활성화*/}
@@ -173,14 +180,14 @@ export default function webcam(){
                         e.preventDefault();
                         setImage('')
                     }}
-                        className="webcam-btn">
+                        className="webcam-btn font-bmjua">
                         재촬영 </CaptureBtn>
                         :
                     <CaptureBtn onClick={(e) => {
                         e.preventDefault();
                         capture();
                     }}
-                        className="webcam-btn">캡처</CaptureBtn>
+                        className="webcam-btn font-bmjua">캡처</CaptureBtn>
                         
                 }
             </WebcamBtnContainer>

@@ -45,7 +45,7 @@ import hairMeshMatching from '../components/function/hairMeshMatching';
 // `;
 
 //CONTENTS
-const Section = tw.section`text-gray-600 body-font overflow-hidden`;
+const Section = tw.section`bg-gradient-to-br from-sky-50 to-gray-200/50 text-gray-600 body-font overflow-hidden`;
 const Container = tw.div`container px-5 py-24 mx-auto`;
 const Wrapper=tw.div`lg:w-4/5 mx-auto flex flex-wrap`;
 const Image = tw.img`lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded`;

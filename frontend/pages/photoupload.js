@@ -44,7 +44,7 @@ export default function photoupload(){
 const sendForm=()=>{
     const formData = new FormData(); //formData객체 생성
     const blob = dataURItoBlob(image); // dataURI to Blob 변환
-    formData.append('capturedImage',blob); //Blob 파일 formData로 전송 
+    formData.append('photoImage',blob); //Blob 파일 formData로 전송 
     const config={
         headers:{
             'Content-type':'multipart/form-data',
@@ -53,7 +53,7 @@ const sendForm=()=>{
         }
     };
     
-    axios.post('http://127.0.0.1:5000/postImage',formData,config)
+    axios.post('http://127.0.0.1:5000/photoImage',formData,config)
         .then((res)=>{ //axios.post 성공시
             console.log(res.data);//json메시지 들어옴 
             alert(res.data.glasses_type);

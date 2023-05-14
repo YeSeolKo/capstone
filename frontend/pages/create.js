@@ -4,16 +4,18 @@ import tw from 'tailwind-styled-components';
 import Link from 'next/link';
 
 
+// ─── css  ───────────────────────────────────────────────────────────────────────
 const Background=tw.div`
     relative
     py-20
     bg-gradient-to-br
-     from-sky-50
-     to-gray-200
+    from-sky-50
+    to-white-100
 `
 const Container=tw.div`relative container m-auto px-6 text-gray-500 md:px-12 xl:px-40`
 
 const Rounded=tw.div`rounded-xl bg-white shadow-xl `
+// ─── css  ───────────────────────────────────────────────────────────────────────
 
 
 
@@ -34,8 +36,8 @@ export  default function create(){
                 <div className="p-6 sm:p-16">
                     <div className="space-y-4">
                         
-                        <h2 className="mb-8 text-2xl text-cyan-900 font-bold">메뉴 선택창<br/></h2>
-                        <h3 className="font-gmarket">얼굴 사진이 필요해요!!</h3>
+                        <h2 className="font-gmarket mb-8 text-2xl text-cyan-900 font-bold text-center">메뉴 선택<br/></h2>
+                        <h3 className="font-gmarket text-center">얼굴 사진이 필요해요!</h3>
                         
                         
                     </div>

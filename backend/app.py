@@ -21,8 +21,10 @@ def hello():
 
 # frontend: webcam에서 axios.post
 
+# photoFile
 
-@app.route('/postImage', methods=['GET', 'POST'])  # 이미지 받기
+
+@app.route('/photoImage', methods=['GET', 'POST'])  # 이미지 받기
 def postImage():
     if request.method == 'GET':
         print('GET')  # console
@@ -30,11 +32,11 @@ def postImage():
     # formData로전송된 blob파일 받기
     elif request.method == 'POST':
 
-        blob = request.files['capturedImage']  # 이름이 같아야 함
-        blob.save('./saved/image.jpeg')  # 크기는 frontend에서 webcam크기
+        blob = request.files['photoImage']  # 이름이 같아야 함
+        blob.save('./saved/photo/photo_image.jpeg')  # 크기는 frontend에서 webcam크기
         # 이미지 저장
         print('flask: next.js api -> flask OK')  # print
-        image_path = './saved/image.jpeg'
+        image_path = './saved/photo/photo_image.jpeg'
         # 모델 불러서 읽기
         # 1) glasses
         glasses_type = glassesDetection.detection(image_path)  # 함수
@@ -49,53 +51,33 @@ def postImage():
                 'hair_type': hair_type}
     return jsonify(data)  # response
 
-# face test
-# test
+# Webcam
 
 
-# @app.route('/face')
-# def face():
-#     img_path = './static/faceTest.jpg'
-#     faceshape = faceDetection.deeplearning(img_path)
-#     print('>>>얼굴 결과:'+faceshape)
-#     return faceshape
+@app.route('/webcamImage', methods=['GET', 'POST'])
+def webcamImage():
+    if request.method == 'GET':
+        print('GET')  # console
+
+    if request.method == 'POST':
+        print('webcam 이미지')
+
+        blob = request.files['webcamImage']
+
+        blob.save('./saved/webcam/webcam_image.jpeg')
+
+        image_path = ('./saved/webcam/webcam_image.jpeg')
+        # 1)glasses
+        glasses_type = glassesDetection.detection(image_path)
+        # 2)face
+        face_type = faceDetection.deeplearning(image_path)
+        # 3)hair 리스트
+        hair_type = hairDetection.deeplearning(image_path)
+        data = {'glasses_type': glasses_type,
+                'face_type': face_type,
+                'hair_type': hair_type}
+    return jsonify(data)  # response
 
 
-# @app.route('/hairtest')
-# def hairtest():
-#     img_path = './static/danbal.jpg'
-#     hairType = hairDetection.deeplearning(img_path)
-#     print('>>>헤어 결과:'+hairType)
-#     return hairType
-
-
-# @app.route('/glasses')
-# def glassesTest():
-#     img_path = './static/leeCS.jpg'
-#     glassesONF = glassesDetection.detection(img_path)
-#     # print('>>>안경 착용 여부:'+glassesType)
-#     return glassesONF
-
-    # #------------------
-    # elif request.method == 'POST':
-    #     blob = request.files['capturedImage']
-    #     blob.save('./saved/blob')  # blob저장
-    #     # 이미지
-    #     data = blob.read()
-    #     image = base64.b64decode(data)
-    #     with open('./saved/image.jpeg', 'wb')as f:
-    #         f.write(image)
-    #     # f = request.files.get('capturedImage')
-    # filename = secure_filename(f.filename)
-    # f.save('./saved/' + filename)# 저장
-    # print('이미지 post 받음 ')# console
-    # return 'postImage!'  # html
-
-
-# def blobToImage(blob):
-#     image=base64.b64decode(blob)
-#     with open('./saved/image.png','wb')as f:
-#         f.write(image)
-# http://127.0.0.1:5000 post
 if __name__ == "__main__":
     app.run(debug=True)  # 디버그 모드 on 하자 (서버 바로바로 바뀌도록 )

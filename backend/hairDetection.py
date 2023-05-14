@@ -50,6 +50,9 @@ def deeplearning(img_path):
     # colab 대신 이 환경에서는 Pillow로 이미지 처리
     img = Image.open(img_path)
     img = img.resize((224, 224))
+    img.save('./saved/hair.jpeg')
+    print('헤어를위한사진저장')
+    print('너비:', img.width, '높이:', img.height)
 
     # 2. 이미지를 넘파이 배열로 변환
     x = np.array(img)
