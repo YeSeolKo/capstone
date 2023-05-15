@@ -178,6 +178,8 @@ export default function Character_All(props) {
             mesh=(
                 <mesh name='hair_01_garma' geometry={nodes_v4.hair_01_garma.geometry} material={materials_v4.Hair} position={[0.03, -0.44, -0.02]} rotation={[Math.PI / 2, 0, 0]} scale={9.43} 
                 material-color="black"
+                
+                // material-color={snap.items.etc}
                 // material-roughness={0.508}
                 // material-clearcoat={1} // Increase the clearcoat value for glossiness
                 // material-clearcoatRoughness={0} // Set the clearcoat roughness to 0 for a smooth clearcoat
@@ -191,14 +193,15 @@ export default function Character_All(props) {
         case 'hair_02_ex_male':
             mesh=(
                 <mesh name='hair_02_ex_male' geometry={nodes_v4.hair_02_ex_male.geometry} material={materials_v4['hair-cards.001']} 
-                position={[0.04, 0.83, -0.15]} rotation={[-2.63, 0.27, 1.34]} scale={1.25} />
+                position={[0.04, 0.83, -0.15]} rotation={[-2.63, 0.27, 1.34]} scale={1.25} 
+                material-color={snap.items.etc}/>
             );
             break;
         //hair_03_ex_layered 기타레이어드 (여성) -빌드펌 비슷
         case 'hair_03_ex_layered':
             mesh=(
                 <mesh name='hair_03_ex_layered' geometry={nodes_v4.hair_03_ex_layered.geometry} material={materials_v4['Default_OBJ.020']} 
-                material-color="#3b2e2b" //HEXcolor !, 또는 기본으로 
+                material-color={snap.items.etc} //HEXcolor !, 또는 기본으로 
                 position={[0.1, -0.3, -0.29]} rotation={[Math.PI, -1.5, Math.PI]} scale={0.107} />
             );
             break;
@@ -207,11 +210,11 @@ export default function Character_All(props) {
             mesh=(
                 <group name='Ex_Female' position={[1.15, -11.41, 0.23]} scale={6.54}>
                 <mesh geometry={nodes_v4.Front_parts4_Front_parts4_0001.geometry} material={materials_v4['Front_parts4.001']}
-                material-color="black" />
+                material-color={snap.items.etc} />
                 <mesh geometry={nodes_v4.Front_parts4_Front_parts4_0001_1.geometry} material={materials_v4['Front_parts13_155.001']} 
-                 material-color="black"/>
+                 material-color={snap.items.etc}/>
                 <mesh geometry={nodes_v4.Front_parts4_Front_parts4_0001_2.geometry} material={materials_v4['Front_parts14_09.001']} 
-                 material-color="black"/>
+                 material-color={snap.items.etc}/>
               </group>
             );
             break;
@@ -221,7 +224,7 @@ export default function Character_All(props) {
         case 'MaleShort':
             mesh=(
                 <mesh name='MaleShort' geometry={nodes_v4.hair_01_garma.geometry} material={materials_v4.Hair} position={[0.03, -0.44, -0.02]} rotation={[Math.PI / 2, 0, 0]} scale={9.43} 
-                material-color="black"/>
+                material-color={snap.items.etc}/>
             );
             break;
 
@@ -231,9 +234,9 @@ export default function Character_All(props) {
             mesh=(
                 <group name='hair_06_dandy' position={[.05, 0.9, 0.16]} rotation={[-0.17, 0.13, -0.03]} scale={0.07}>
                     <mesh geometry={nodes_v4.Hair_Hair1_0001.geometry} material={materials_v4['Hair1.001']} 
-                    material-color="black"/>
+                    material-color={snap.items.etc}/>
                     <mesh geometry={nodes_v4.Hair_Hair1_0001_1.geometry} material={materials_v4['Hair2.003']}
-                    material-color="black" />
+                    material-color={snap.items.etc} />
                 </group>
             );
             break;
@@ -241,7 +244,7 @@ export default function Character_All(props) {
         case 'Loop':
             mesh=(
                 <mesh name='Loop' geometry={nodes_v4.hair_01_garma.geometry} material={materials_v4.Hair} position={[0.03, -0.44, -0.02]} rotation={[Math.PI / 2, 0, 0]} scale={9.43} 
-                material-color="black"
+                material-color={snap.items.etc}
                 />
             );
             break;
@@ -253,6 +256,7 @@ export default function Character_All(props) {
             mesh=(
                 <mesh name='hair_09_leaf' geometry={nodes_v4.hair_09_leaf.geometry} material={materials_v4['material_0.003']} 
                 position={[0, 0.1, -0.35]} rotation={[-1.45, 0, 0]} scale={1.01}
+                material-color={snap.items.etc}
                  />
             );
             break;
@@ -467,7 +471,8 @@ export default function Character_All(props) {
         case 'hair_EX_long_ddong':
             mesh=(
                 <mesh name='hair_EX_long_ddong' geometry={nodes_v4.long_ddong.geometry} material={materials_v4['Default_OBJ.021']} 
-                position={[0, 0.24, -0.36]} rotation={[Math.PI, -1.49, Math.PI]} scale={0.1} />
+                position={[0, 0.24, -0.36]} rotation={[Math.PI, -1.49, Math.PI]} scale={0.1} 
+                material-color={snap.items.etc}/>
             );
             break;
         //hair_EX_male
@@ -485,7 +490,7 @@ export default function Character_All(props) {
                 <group name='hair_30_hush' position={[-1.4,-1.3, 0]} rotation={[-Math.PI / 2, 0, 0]} scale={0.52}>
                     <group position={[0.11, 0, 0]} rotation={[Math.PI / 2, 0, 0]}>
                         <group rotation={[0, Math.PI / 2, 0]} scale={[1.33, 0.85, 0.85]}>
-                            <mesh name='hair_30_hush'geometry={nodes_v4.Object_4.geometry} material={materials_v4.Hair2} material-color={snap.items.face01} />
+                            <mesh name='hair_30_hush'geometry={nodes_v4.Object_4.geometry} material={materials_v4.Hair2} material-color={snap.items.etc} />
                         </group>
                         <group rotation={[1.52, 0, 0]} scale={[11.24, 13.18, 13.32]}>
                             <mesh geometry={nodes_v4.Object_6.geometry} material={materials_v4.Hair2} position={[0, 0, 0]} scale={0.98} />
