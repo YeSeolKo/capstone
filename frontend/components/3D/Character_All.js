@@ -45,37 +45,53 @@ export default function Character_All(props) {
         case 'eye_blue':
             mesh=(
                 <group>
-                {/* //오른쪽 */}
-                <mesh geometry={nodes_v5.blue_eye.geometry} material={materials_v5['chibi_template_2_eyes.002']} position={[0.39, 0.42, 0.62]} scale={0.06} />
+                    <mesh geometry={nodes_v5.blue_eye.geometry} material={materials_v5['chibi_template_2_eyes.002']} 
+                     position={[0.45, 0.42, 0.65]} scale={0.06} />
+                    <mesh geometry={nodes_v5.blue_eye.geometry} material={materials_v5['chibi_template_2_eyes.002']} 
+                    position={[-0.15, 0.42, 0.65]} scale={0.06} />
                 </group>
             );
             break;
         case 'eye_brown':
             mesh=(
-                // 오른쪽
-                <mesh geometry={nodes_v5.brown_eye_right.geometry} material={materials_v5['chibi_template_1_eyes.001']} position={[0.08, -1.24, 0.23]} scale={0.06} />
+                <group>
+                    <mesh geometry={nodes_v5.brown_eye_right.geometry} material={materials_v5['chibi_template_1_eyes.001']} 
+                    position={[0.12, -1.29, 0.23]} scale={0.06} />
+                    <mesh geometry={nodes_v5.brown_eye_right.geometry} material={materials_v5['chibi_template_1_eyes.001']} 
+                    position={[-0.45, -1.29, 0.23]} scale={0.06} />
+                    
+                </group>
+                
             );
             break;
         case 'eye_1':
             //양쪽 눈 object
             mesh=(
                 <mesh geometry={nodes_eye_1.EYES1_EYES1_0001.geometry} material={materials_eye_1['EYES1.001']} 
-                position={[0.04, 0.4, 0.6]} rotation={[-0.45, -0.04, 3.13]} scale={0.63} />
+                position={[0.04, 0.37, 0.6]} rotation={[-0.45, -0.04, 3.13]} scale={0.63} />
             );
             break;
         case 'eye_2':
             mesh=(
                 //까만 눈 오른쪽 
-                <mesh geometry={nodes_eye_2.Sphere.geometry} material={materials_eye_2['Material.001']} 
-                position={[0.3,0.4,0.65]} scale={0.2} />
+                <group>
+                    <mesh geometry={nodes_eye_2.Sphere.geometry} material={materials_eye_2['Material.001']} 
+                    position={[0.3,0.4,0.65]} scale={0.2} />
+                    <mesh geometry={nodes_eye_2.Sphere.geometry} material={materials_eye_2['Material.001']} 
+                    position={[-0.3,0.4,0.65]} scale={0.2} />
+                </group>
             );
             break;
         //NOTE - 눈썹(eye brow)─────────────────────────────────
         case 'brow':
             mesh=(
                 //오른쪽
-                <mesh geometry={nodes_brow.eye_brows_right.geometry} material={materials_brow['eyebrows.002']} 
-                position={[0.4, 0.55, 0.64]} rotation={[-0.21, -0.38, -0.01]} scale={0.41} />
+                <group>
+                    <mesh geometry={nodes_brow.eye_brows_right.geometry} material={materials_brow['eyebrows.002']} 
+                    position={[0.35, 0.55, 0.64]} rotation={[-0.21, -0.38, -0.01]} scale={0.41} />
+                    <mesh geometry={nodes_brow.eye_brows_right.geometry} material={materials_brow['eyebrows.002']} 
+                    position={[-0.35, 0.55, 0.64]} rotation={[-0.21, 135.38, -0.01]} scale={0.41} />
+                </group>
 
             );
             break;
@@ -176,9 +192,32 @@ export default function Character_All(props) {
             mesh=(
                 <mesh name='hair_03_ex_layered' geometry={nodes_v4.hair_03_ex_layered.geometry} material={materials_v4['Default_OBJ.020']} 
                 material-color="#3b2e2b" //HEXcolor !, 또는 기본으로 
-                position={[0.1, -0.3, -0.29]} rotation={[Math.PI, -1.5, Math.PI]} scale={0.105} />
+                position={[0.1, -0.3, -0.29]} rotation={[Math.PI, -1.5, Math.PI]} scale={0.107} />
             );
             break;
+        //기타 여자 스타일
+         case 'Ex_Female':
+            mesh=(
+                <group name='Ex_Female' position={[1.15, -11.41, 0.23]} scale={6.54}>
+                <mesh geometry={nodes_v4.Front_parts4_Front_parts4_0001.geometry} material={materials_v4['Front_parts4.001']}
+                material-color="black" />
+                <mesh geometry={nodes_v4.Front_parts4_Front_parts4_0001_1.geometry} material={materials_v4['Front_parts13_155.001']} 
+                 material-color="black"/>
+                <mesh geometry={nodes_v4.Front_parts4_Front_parts4_0001_2.geometry} material={materials_v4['Front_parts14_09.001']} 
+                 material-color="black"/>
+              </group>
+            );
+            break;
+
+
+        //FIXME 남자일반숏
+        case 'MaleShort':
+            mesh=(
+                <mesh name='MaleShort' geometry={nodes_v4.hair_01_garma.geometry} material={materials_v4.Hair} position={[0.03, -0.44, -0.02]} rotation={[Math.PI / 2, 0, 0]} scale={9.43} 
+                material-color="black"/>
+            );
+            break;
+
 
         //hair_06_dandy 댄디 (남성)
         case 'hair_06_dandy':
@@ -191,6 +230,17 @@ export default function Character_All(props) {
                 </group>
             );
             break;
+        //FIXME - 루프
+        case 'Loop':
+            mesh=(
+                <mesh name='Loop' geometry={nodes_v4.hair_01_garma.geometry} material={materials_v4.Hair} position={[0.03, -0.44, -0.02]} rotation={[Math.PI / 2, 0, 0]} scale={9.43} 
+                material-color="black"
+                />
+            );
+            break;
+        //NOTE - 리젠트 (포마드)
+
+
         //hair_09_leaf 리프(남성)
         case 'hair_09_leaf':
             mesh=(
@@ -199,6 +249,15 @@ export default function Character_All(props) {
                  />
             );
             break;
+        //FIXME 미스티
+        case 'Misty':
+            mesh=(
+                <mesh name='Misty' geometry={nodes_v4.hair_03_ex_layered.geometry} material={materials_v4['Default_OBJ.020']} 
+                material-color="#3b2e2b" //HEXcolor !, 또는 기본으로 
+                position={[0.1, -0.3, -0.29]} rotation={[Math.PI, -1.5, Math.PI]} scale={0.107} />
+            );
+            break;
+
         //hair_11_body 바디(여성)
         case 'hair_11_body':
             mesh=(
@@ -212,6 +271,15 @@ export default function Character_All(props) {
               </group>
             );
             break;
+        //FIXME - 베이비
+        case 'Baby':
+            mesh=(
+                <mesh name='Baby' geometry={nodes_v4.hair_01_garma.geometry} material={materials_v4.Hair} position={[0.03, -0.44, -0.02]} rotation={[Math.PI / 2, 0, 0]} scale={9.43} 
+                material-color="black"
+                />
+            );
+            break;
+
         //hair_13_bony 보니(단발 앞머리) -> texture 
         case 'hair_13_bony':
             mesh=(
@@ -219,13 +287,61 @@ export default function Character_All(props) {
                 position={[0.06, 0.05, -0.3]} rotation={[Math.PI, -1.4, Math.PI]} scale={0.13} />
             );
             break;
+        //FIXME 보브
+        case 'Vov':
+            mesh=(
+                <mesh name='Vov' geometry={nodes_v4.hair_13_bony.geometry} material={materials_v4['Default_OBJ.001']} 
+                position={[0.06, 0.05, -0.3]} rotation={[Math.PI, -1.4, Math.PI]} scale={0.13} 
+                material-color='black'/>
+            );
+            break;
+
         //hair_15_build
         case 'hair_15_build':
             mesh=(
                 <mesh name='hair_15_build' geometry={nodes_v4.hair_15_build.geometry} material={materials_v4['Default_OBJ.022']} 
-                position={[0, -0.4, -0.4]} rotation={[Math.PI, -1.53, Math.PI]} scale={0.103} />
+                position={[0, -0.4, -0.4]} rotation={[Math.PI, -1.53, Math.PI]} scale={0.103} 
+                material-color='black'/>
             );
             break;
+
+        //FIXME - 소프트투블럭댄디
+        case 'Soft':
+            mesh=(
+                <group name='Soft' position={[.05, 0.9, 0.16]} rotation={[-0.17, 0.13, -0.03]} scale={0.07}>
+                    <mesh geometry={nodes_v4.Hair_Hair1_0001.geometry} material={materials_v4['Hair1.001']} 
+                    material-color="black"/>
+                    <mesh geometry={nodes_v4.Hair_Hair1_0001_1.geometry} material={materials_v4['Hair2.003']}
+                    material-color="black" />
+                </group>
+            );
+            break;
+        //숏단발
+        case 'ShortDanbal':
+        mesh=(
+                <mesh name='ShortDanbal'geometry={nodes_md_hair.HAIR_HAIR_0001.geometry} material={materials_md_hair['HAIR.001']} 
+                position={[0.05, 0.3, 0.1]} scale={0.7} 
+                material-color="black"/>
+        );
+        break;
+
+        //FIXME - 쉐도우
+        case 'Shadow':
+        mesh=(
+            <mesh name='Shadow' geometry={nodes_v4.hair_01_garma.geometry} material={materials_v4.Hair} position={[0.03, -0.44, -0.02]} rotation={[Math.PI / 2, 0, 0]} scale={9.43} 
+            material-color="black"
+            />
+        );
+        break;
+        //FIXME - 쉼표
+        case 'Comma':
+        mesh=(
+            <mesh name='Comma' geometry={nodes_v4.hair_01_garma.geometry} material={materials_v4.Hair} position={[0.03, -0.44, -0.02]} rotation={[Math.PI / 2, 0, 0]} scale={9.43} 
+            material-color="black"
+            />
+        );
+        break;
+
         //hair_20_spin_swallow
         case 'hair_20_spin_swallow':
             mesh=(
@@ -234,41 +350,8 @@ export default function Character_All(props) {
                 material-color="black"/>
             );
             break;
-        //hair_EX_long_ddong
-        case 'hair_EX_long_ddong':
-            mesh=(
-                <mesh name='hair_EX_long_ddong' geometry={nodes_v4.long_ddong.geometry} material={materials_v4['Default_OBJ.021']} 
-                position={[0, 0.24, -0.36]} rotation={[Math.PI, -1.49, Math.PI]} scale={0.1} />
-            );
-            break;
-        //hair_EX_male
-        case 'hair_EX_male':
-            mesh=(
-                <mesh name='hair_EX_male' geometry={nodes_v4.Object_2003.geometry} material={materials_v4['material_0.005']} position={[-3.04, 0.62, -0.15]} rotation={[-1.93, 0.02, -0.2]} scale={7.66} />
-            );
-            break;
-        //hair_25_onelength
-        case 'hair_25_onelength':
-            mesh=(
-            //     <group name='hair_25_onelength' position={[0.3, 0.63, 0.79]} rotation={[0.15, 0.12, -1.14]}>
-            //         <mesh geometry={nodes_v4.Tube_3001.geometry} material={materials_v4['Material_2.002']} 
-            //         material-color="black"/>
-            //         <mesh geometry={nodes_v4.Tube_3001_1.geometry} material={materials_v4['Front_parts13_214.001']} 
-            //         material-color="black"/>
-            //   </group>
+        
 
-                //new_one_length 모델 사용 
-                <group position={[-1.41, -0.4, 0.53]} rotation={[-Math.PI / 2, 0, 0]} scale={0.05}>
-                    <group rotation={[Math.PI / 2, 0, 0]}>
-                        <mesh geometry={nodes_onelength.long_hair_bangs1_long_hair_bangs1_0.geometry} material={materials_onelength.long_hair_bangs1} 
-                        position={[28.32, 12.28, -14.5]} scale={1.47} 
-                        />
-                    </group>
-                </group>
-
-
-            );
-            break;
         //hair_21_dandy2
         case 'hair_21_dandy2':
             mesh=(
@@ -284,6 +367,111 @@ export default function Character_All(props) {
               </group>
             );
             break;
+        //NOTE - 애즈
+        case 'Ads':
+            mesh=(
+                <mesh name='Ads' geometry={nodes_v4.Object_2003.geometry} material={materials_v4['material_0.005']} 
+                position={[0.04, 0.62, -0.15]} rotation={[-1.93, 0.02, -0.2]} scale={7.66} 
+                material-color='black'/>
+            );
+            break;
+
+        //FIXME - 에어 (여성긴머리펌)
+        case 'Air':
+            mesh=(
+                <mesh name='Air' geometry={nodes_v4.hair_03_ex_layered.geometry} material={materials_v4['Default_OBJ.020']} 
+                material-color="#3b2e2b" //HEXcolor !, 또는 기본으로 
+                position={[0.1, -0.3, -0.29]} rotation={[Math.PI, -1.5, Math.PI]} scale={0.107} />
+            );
+            break;
+
+        //FIXME 여자일반숏
+        case 'FemaleShort':
+            mesh=(
+                <group name='FemaleShort' position={[1.15, -11.41, 0.23]} scale={6.54}>
+                <mesh geometry={nodes_v4.Front_parts4_Front_parts4_0001.geometry} material={materials_v4['Front_parts4.001']}
+                material-color="black" />
+                <mesh geometry={nodes_v4.Front_parts4_Front_parts4_0001_1.geometry} material={materials_v4['Front_parts13_155.001']} 
+                 material-color="black"/>
+                <mesh geometry={nodes_v4.Front_parts4_Front_parts4_0001_2.geometry} material={materials_v4['Front_parts14_09.001']} 
+                 material-color="black"/>
+              </group>
+            );
+            break;
+        //원랭스
+        //hair_25_onelength
+        case 'hair_25_onelength':
+            mesh=(
+                //new_one_length 모델 사용 
+                <group position={[-1.41, -0.4, 0.53]} rotation={[-Math.PI / 2, 0, 0]} scale={0.05}>
+                    <group rotation={[Math.PI / 2, 0, 0]}>
+                        <mesh geometry={nodes_onelength.long_hair_bangs1_long_hair_bangs1_0.geometry} material={materials_onelength.long_hair_bangs1} 
+                        position={[28.32, 12.28, -14.5]} scale={1.47}
+                        material-color="black" 
+                        />
+                    </group>
+                </group>
+            );
+            break;
+        //FIXME - 원블럭댄디
+        case 'OneDandy':
+        mesh=(
+            <group name='OneDandy' position={[0, 0.96, 0]} rotation={[-0.26, 0, 0.02]} scale={0.075}>
+                <mesh geometry={nodes_v4.Hair_Material002_0003.geometry} material={materials_v4['Material.019']} 
+                material-color="black"/>
+                <mesh geometry={nodes_v4.Hair_Material002_0003_1.geometry} material={materials_v4['Material.018']} 
+                    material-color="black"/>
+                <mesh geometry={nodes_v4.Hair_Material002_0003_2.geometry} material={materials_v4['Material.017']} 
+                    material-color="black"/>
+                <mesh geometry={nodes_v4.Hair_Material002_0003_3.geometry} material={materials_v4['Material.016']} 
+                material-color="black"/>
+            </group>
+        );
+        break;
+
+        //FIXME - 테슬 (여자 단발 뻗침머리 )
+        case 'Tassel':
+            mesh=(
+                <group name='Tassel' position={[1.15, -11.41, 0.23]} scale={6.54}>
+                <mesh geometry={nodes_v4.Front_parts4_Front_parts4_0001.geometry} material={materials_v4['Front_parts4.001']}
+                material-color="black" />
+                <mesh geometry={nodes_v4.Front_parts4_Front_parts4_0001_1.geometry} material={materials_v4['Front_parts13_155.001']} 
+                    material-color="black"/>
+                <mesh geometry={nodes_v4.Front_parts4_Front_parts4_0001_2.geometry} material={materials_v4['Front_parts14_09.001']} 
+                    material-color="black"/>
+                </group>
+            );
+            break;
+
+        //NOTE - 포마드
+        //NOTE -  플리츠 (묶은머리 )
+
+        //FIXME - 히피
+        case 'Hippy':
+            mesh=(
+                <mesh name='Hippy' geometry={nodes_v4.long_ddong.geometry} material={materials_v4['Default_OBJ.021']} 
+                position={[0, 0.24, -0.36]} rotation={[Math.PI, -1.49, Math.PI]} scale={0.1} 
+                material-color='black'/>
+            );
+            break;
+
+
+        //hair_EX_long_ddong
+        case 'hair_EX_long_ddong':
+            mesh=(
+                <mesh name='hair_EX_long_ddong' geometry={nodes_v4.long_ddong.geometry} material={materials_v4['Default_OBJ.021']} 
+                position={[0, 0.24, -0.36]} rotation={[Math.PI, -1.49, Math.PI]} scale={0.1} />
+            );
+            break;
+        //hair_EX_male
+        // case 'hair_EX_male':
+        //     mesh=(
+        //         <mesh name='hair_EX_male' geometry={nodes_v4.Object_2003.geometry} material={materials_v4['material_0.005']} 
+        //         position={[0.04, 0.62, -0.15]} rotation={[-1.93, 0.02, -0.2]} scale={7.66} 
+        //         material-color='black'/>
+        //     );
+        //     break;
+    
         //hair_30_hush
         case 'hair_30_hush':
             mesh=(
@@ -303,14 +491,7 @@ export default function Character_All(props) {
             
         );
         break;
-        //단발머리
-        case 'md_hair':
-            mesh=(
-                  <mesh geometry={nodes_md_hair.HAIR_HAIR_0001.geometry} material={materials_md_hair['HAIR.001']} 
-                  position={[0.05, 0.3, 0.1]} scale={0.7} 
-                  material-color="black"/>
-            );
-            break;
+     
 
         
         //그냥 앞머리 -------------------------------------------------------

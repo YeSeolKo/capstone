@@ -112,7 +112,7 @@ export  default function Modify(){
     const {hair_state,setHair_state}=useStore();
     const {glasses_mesh_state,setGlassesMesh_state}=useStore();//안경
     const {hair_mesh_state,setHairMesh_state}=useStore();//헤어 메쉬 변환
-    
+    const {eye_state,setEyeState}=useStore();//헤어 메쉬 변환
 
     console.log('헤어 디폴트 state:',hair_state);
 
@@ -139,11 +139,12 @@ export  default function Modify(){
       console.log('버튼:',clicked);
       setHairMesh_state(clicked);
     };
-
-  
-
-
-
+    //3)메쉬 바꾸기 (눈: 기본 )
+    function EyesButtonClick(e){
+      const clicked=e.target.id;
+      console.log('버튼:',clicked);
+      setEyeState(clicked);
+    };
 
 
     //탭 !!!! 
@@ -189,6 +190,9 @@ export  default function Modify(){
               <Character_All meshName='face02'/>
               {/* 헤어 */}
               <Character_All meshName={hair_mesh_state}/>
+              {/* 눈 */}
+              <Character_All meshName={eye_state}/>
+              
             </mesh>
             <OrbitControls/> {/*3D 모델 축 회전 관련*/}
             {/* </Suspense> */}
@@ -227,6 +231,7 @@ export  default function Modify(){
                 <Button id="가르마" onClick={ButtonClick}>가르마</Button>
                 <Button id="기타남자스타일" onClick={ButtonClick}>기타 남자스타일</Button>
                 <Button id="기타레이어드" onClick={ButtonClick}>기타 레이어드</Button>
+                <Button id="기타여자스타일" onClick={ButtonClick}>기타 여자스타일</Button>
                 <Button id="남자일반숏" onClick={ButtonClick}>남자일반숏</Button>
                 <Button id="댄디" onClick={ButtonClick}>댄디</Button>
                 <Button id="루프" onClick={ButtonClick}>루프</Button>
@@ -243,6 +248,7 @@ export  default function Modify(){
                 <Button id="쉐도우" onClick={ButtonClick}>쉐도우</Button>
                 <Button id="쉼표" onClick={ButtonClick}>쉼표</Button>
                 <Button id="스핀스왈로" onClick={ButtonClick}>스핀스왈로</Button>
+                <Button id="시스루댄디" onClick={ButtonClick}>시스루댄디</Button>
                 <Button id="애즈" onClick={ButtonClick}>애즈</Button>
                 <Button id="에어" onClick={ButtonClick}>에어</Button>
                 <Button id="여자일반숏" onClick={ButtonClick}>여자일반숏</Button>
@@ -254,9 +260,18 @@ export  default function Modify(){
                 <Button id="허쉬" onClick={ButtonClick}>허쉬</Button>
                 <Button id="히피" onClick={ButtonClick}>히피</Button>
                 <Button id="똥머리" onClick={ButtonClick}>똥머리</Button>
-                <Button id="hair_EX_male" onClick={ButtonClick}>hair_EX_male</Button>
+                {/* <Button id="hair_EX_male" onClick={ButtonClick}>hair_EX_male</Button> */}
               </div>
             </Content>
+
+            <Content active={active === 2}>
+            <div className="p-4 border-2 grid grid-cols-4 gap-">
+              <Button id="eye_blue" onClick={EyesButtonClick}> 파란 눈</Button>
+              <Button id="eye_brown" onClick={EyesButtonClick}>갈색 눈</Button>
+              <Button id="eye_1" onClick={EyesButtonClick}> 디즈니 눈</Button>
+              <Button id="eye_2" onClick={EyesButtonClick}> 기본 눈</Button>
+            </div>
+          </Content>
 
           </Tab_Container>
 

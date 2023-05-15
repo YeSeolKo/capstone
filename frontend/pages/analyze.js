@@ -4,11 +4,8 @@ import { useRouter } from 'next/router';
 import Link from'next/link';
 import { useState,useEffect,Suspense } from 'react';
 
-import Ch_test from '../components/3D/Ch_test'; //Ch_test
 import { OrbitControls } from '@react-three/drei';
-import { PropertyBinding } from 'three';
-import CharacterV4 from '../components/3D/CharacterV4';
-import BackGround from '../components/home/BackGround';
+
 //컴포넌트
 // import Loading from '../components/3D/Loading';
 import Character_All from '../components/3D/Character_All';
@@ -19,11 +16,12 @@ import tw from 'tailwind-styled-components';
 
 
 //R3F
-import { Canvas } from '@react-three/fiber';
+import {  useLoader, Canvas } from '@react-three/fiber';
 import { Text } from '@react-three/drei';
+import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader'; //??
 
 
-//zustand
+//zustand (전역상태관리 )
 import useStore from '../components/zustand_store/store';
 
 //json파일
@@ -31,18 +29,11 @@ import matching_json from'../public/json/chracter_matching.json';
 
 //함수
 import hairMeshMatching from '../components/function/hairMeshMatching';
+import Lights from '../components/3D/Lights';
 
-// import BMJUA from '../public/fonts/BMJUA_ttf.ttf';
+
 
 // ─── css  ───────────────────────────────────────────────────────────────────────
-//배경색
-// const SkyBackground = tw.div`
-//   relative py-10 bg-gradient-to-br from-sky-50 to-gray-200
-// `;
-//가운데정렬
-// const Container = tw.div`
-//   relative container m-auto px-6  md:px-12 xl:px-40
-// `;
 
 //CONTENTS
 const Section = tw.section`bg-gradient-to-br from-sky-50 to-gray-200/50 text-gray-600 body-font overflow-hidden`;
@@ -66,6 +57,7 @@ export  default function Analyze(){
     const {hair_state,setHair_state}=useStore();
     const {hair_mesh_state,setHairMesh_state}=useStore();
     const {glassesMesh_state,setGlassesMesh_state}=useStore();
+    const {eye_state,setEyeState}=useStore();
 
 
     //response 데이터파싱 
@@ -84,8 +76,10 @@ export  default function Analyze(){
         setFace_state(data.face_type); //얼굴 Oval
         setHair_state(data.hair_type[0]); //헤어 애즈 
         setHairMesh_state(data.hair_type[0]); //NOTE - 
+        //눈 상태 초기화 해야함
+        setEyeState('eye_2');
       }
-    }, [data, setGlasses_state,setFace_state,setHair_state,setHairMesh_state]);
+    }, [data, setGlasses_state,setFace_state,setHair_state,setHairMesh_state,setEyeState]);
      //store에 저장 확인 
      console.log('store',glasses_state);
      console.log('face',face_state);
@@ -94,7 +88,7 @@ export  default function Analyze(){
      
 
     if (!data) {
-      return <div>Loading...</div>; // 데이터가 로드되기 전에 로딩 상태를 표시할 수 있습니다.
+      return <div>Loading...</div>; //FIXME - 데이터가 로드되기 전에 로딩 상태를 표시
     };
 
     //json parsing해서 변수 선언 ----
@@ -108,7 +102,9 @@ export  default function Analyze(){
     //NOTE - state사용해도 될듯 
 
     const user='USER';
+
     
+
   
     return(
         <>
@@ -120,8 +116,8 @@ export  default function Analyze(){
         {/* 캔버스------------------------- */}
         <div className='rounded-3xl bg-white shadow-lg lg:w-1/2 w-full border-4 lg:h-auto h-64 object-cover object-center rounded'>
           <Canvas >
-            <ambientLight intensity={1} />
-            <spotLight intensity={0.5} angle={0.1} penumbra={1} position={[10, 15, 10]} castShadow />
+            <Lights/>
+            {/* <Suspense fallback={}> */}
             {/* //NOTE - 한글폰트 */}
             <Text position={[0, 2.5, 0]} fontSize={1} outlineColor="black"outlineWidth={0.02} >
             Hello, World! </Text> 
@@ -136,8 +132,14 @@ export  default function Analyze(){
               <Character_All meshName='face02'/>
               {/* 헤어 */}
               <Character_All meshName={top1_hair_mesh}/>
+              {/* 눈 */}
+              <Character_All meshName='eye_2'/>
+              {/* <Character_All meshName={eye_state}/> */}
+              {/* <Character_All meshName={'eye_blue'}/> */}
+              {/* <Character_All meshName={'brow'}/> */}
               
             </mesh>
+            {/* </Suspense> */}
             <OrbitControls/> {/*3D 모델 축 회전 관련*/}
             {/* </Suspense> */}
 
@@ -149,7 +151,7 @@ export  default function Analyze(){
 
         {/* 왼쪽 ---------------------------*/}
         <Description>
-          <div className='border-2 rounded-md p-4'>
+          <div className='bg-white border-2 rounded-md p-4'>
           <h1 className='font-gmarket text-3xl'>분석 결과 </h1>
           </div>
           

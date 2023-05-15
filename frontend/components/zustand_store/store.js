@@ -36,6 +36,11 @@ const useStore = create((set) => ({
       set({hair_mesh_state:matching});
       console.log('>>>>>>헤어 들어온 값:',hair_state); //허쉬
       console.log('>>>>>>변환된 메쉬',matching);//hair_30_hush
+    },
+    //눈 state & mesh
+    eye_state:'eye_2',
+    setEyeState:(newEye)=>{
+      set({eye_state:newEye});
     }
   }));
 

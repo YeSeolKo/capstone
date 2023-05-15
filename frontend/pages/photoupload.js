@@ -16,6 +16,8 @@ import BackCard from '../components/home/BackCard';
 export default function photoupload(){
   const[image,setImage]=useState('');
   const router=useRouter(); //useRouter
+  const [isLoading,setIsLoading]=useState(false);//로딩
+
 
   //이미지 업로드 미리보기
   const handleImage=(e)=>{
@@ -42,6 +44,7 @@ export default function photoupload(){
 
 //sendForm구현 
 const sendForm=()=>{
+    setIsLoading(true); //로딩 상태 true로 설정 
     const formData = new FormData(); //formData객체 생성
     const blob = dataURItoBlob(image); // dataURI to Blob 변환
     formData.append('photoImage',blob); //Blob 파일 formData로 전송 
@@ -56,7 +59,7 @@ const sendForm=()=>{
     axios.post('http://127.0.0.1:5000/photoImage',formData,config)
         .then((res)=>{ //axios.post 성공시
             console.log(res.data);//json메시지 들어옴 
-            alert(res.data.glasses_type);
+            alert(res.data.glasses_type); //FIXME alert 대기 
             
              //router.push: 버튼 누르면 페이지 이동
             router.push({
@@ -70,21 +73,48 @@ const sendForm=()=>{
         .catch((err)=>{
             console.log(err);
         })
-    }
+        .finally(()=>{
+            setIsLoading(false);//요청 완료 시 로딩 false 
+            
+        });
+    };
 
   return (
     <>
       <Seo title='PhotoUpload'></Seo>
+  {/* 로딩 표시*/}
+  {/* FIXME - 로딩  */}
+{isLoading && (
+  <div
+    style={{
+      position: 'fixed',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      background: 'rgba(255, 255, 255, 0.8)',
+      borderRadius: '4px',
+      padding: '16px',
+      display: 'flex',
+      alignItems: 'center',
+    }}
+  >
+    <svg className="animate-spin h-5 w-5 mr-3" viewBox="0 0 24 24">
+      {/* 스피닝 아이콘 SVG */}
+    </svg>
+    <span>Loading...</span>
+  </div>
+)}
 
+{/* 로딩 버튼 */}
+{isLoading ? (
+  <button type="button" className="bg-indigo-500" disabled>
+    <svg className="animate-spin h-5 w-5 mr-3" viewBox="0 0 24 24">
+      {/* 스피닝 아이콘 SVG */}
+    </svg>
+    Processing...
+  </button>
+) : null}
 
-        {/* 이미지 미리보기
-        {imageSrc && (
-      <img 
-        src={imageSrc} 
-        alt="Preview" 
-        style={{width:"200px", height:"200px", marginTop:"20px"}} 
-      />
-    )} */}
 
 
 {/* //FIXME - 반응형 css 수정 */}
@@ -93,14 +123,14 @@ const sendForm=()=>{
             {/* 조건부렌더링 - 이미지 미리보기 */}
             {image ? (
                 <img 
-                    className="w-full h-full object-contain"
+                    className="w-80 h-80 object-contain"
                     src={image}
                     alt="Preview"
                    />
             ): (
                 // 기본이미지
             <span className="text-gray-400 opacity-75">
-                <svg className="w-14 h-14"  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="0.7" stroke="currentColor">
+                <svg className="w-80 h-80"  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="0.7" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round"d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
                 </svg>
             </span>

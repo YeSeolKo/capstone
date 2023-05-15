@@ -82,6 +82,7 @@ export default function TF_All() {
   const {hair_state,setHair_state}=useStore();
   const {hair_mesh_state,setHairMesh_state}=useStore();
   const {glasses_mesh_state,setGlassesMesh_state}=useStore();
+  const {eye_state,setEyeState}=useStore();
   
   // zustand 새로고침 후에  상태복원
   useEffect(() => {
@@ -287,6 +288,9 @@ export default function TF_All() {
               {/* 헤어 */}
               {/* FIXME - zustand 대신 함수 사용 */}
               <Character_All meshName={hairMeshMatching(hair_state)}/> 
+              {/* 눈 */}
+              <Character_All meshName={eye_state}/>
+              
               {/* <Character_All meshName='glasses_1'/>
               <Character_All meshName='face02'/> */}
             </mesh>
