@@ -314,6 +314,3 @@ export default function TF_All() {
       );
     }
     
-
-
-    

@@ -1,7 +1,14 @@
-import React, { useRef } from 'react'
-import { useGLTF } from '@react-three/drei'
+import React, { useRef,useState } from 'react';
+import { useGLTF } from '@react-three/drei';
+import {proxy,useSnapshot} from 'valtio';
+import { state } from '../store/state';
 
 export default function Character_All(props) {
+    const [hover,set]=useState(null);
+    const snap=useSnapshot(state) //상태관리 
+
+
+
     const group = useRef();
     const { nodes: nodes_v4, materials: materials_v4 } = useGLTF('/characterv4.glb');
     const { nodes: nodes_v5, materials:materials_v5 } = useGLTF('/characterv5.glb'); //눈 모음
@@ -478,7 +485,7 @@ export default function Character_All(props) {
                 <group name='hair_30_hush' position={[-1.4,-1.3, 0]} rotation={[-Math.PI / 2, 0, 0]} scale={0.52}>
                     <group position={[0.11, 0, 0]} rotation={[Math.PI / 2, 0, 0]}>
                         <group rotation={[0, Math.PI / 2, 0]} scale={[1.33, 0.85, 0.85]}>
-                            <mesh geometry={nodes_v4.Object_4.geometry} material={materials_v4.Hair2} />
+                            <mesh name='hair_30_hush'geometry={nodes_v4.Object_4.geometry} material={materials_v4.Hair2} material-color={snap.items.face01} />
                         </group>
                         <group rotation={[1.52, 0, 0]} scale={[11.24, 13.18, 13.32]}>
                             <mesh geometry={nodes_v4.Object_6.geometry} material={materials_v4.Hair2} position={[0, 0, 0]} scale={0.98} />
@@ -524,7 +531,15 @@ export default function Character_All(props) {
     }
 
   return (
-      <group ref={group} dispose={null}>
+      <group ref={group} dispose={null}
+        //이벤트 관련
+      onPointerOver={(e)=>{e.stopPropagation(),set(e.object.material.name)}}
+      onPointerOut={(e)=>{e.intersections.length==0 && set(null)}}
+      // onPointerDown={(e)=>{e.stopPropagation();state.current=e.object.material.name}}
+      
+      //state.current의 name을 받아보자 
+      onPointerDown={(e)=>{e.stopPropagation();state.current=e.object.name}}//name 으로 받아보기
+      onPointerMissed={(e)=>{state.current=null}}>
           {mesh}
       </group>
   );

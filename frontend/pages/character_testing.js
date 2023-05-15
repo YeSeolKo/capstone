@@ -10,7 +10,7 @@ import { PropertyBinding } from 'three';
 // import Loading from '../components/3D/Loading';
 import Character_All from '../components/3D/Character_All';
 import Lights from '../components/3D/Lights';
-import { Canvas } from '@react-three/fiber';
+import { Canvas,useLoader } from '@react-three/fiber';
 
 export default function CharacterTesting(){
     return (

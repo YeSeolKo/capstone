@@ -5,7 +5,7 @@ const Head=tw.header`
     border-b-2
     border-slate-200
     body-font
-    bg-white //배경 투명 
+    bg-blue-200/20 //배경 투명 
 `;
 
 
@@ -19,7 +19,7 @@ export default function Header(){
         {/* //SECTION - yeseol 3d project 메인으로 돌아가는 link */}
         <Link href='/'>
             <a className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0"> 
-            <span className="font-gmarket sml-3 text-md">3D PROJECT</span>
+            <span className="text-xl font-gmarket sml-3 text-md">3D PROJECT</span>
             </a>
         </Link>
 

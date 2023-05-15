@@ -29,6 +29,8 @@ import useStore from '../components/zustand_store/store';
 //함수
 import hairMeshMatching from '../components/function/hairMeshMatching';
 
+//Pcker
+import Picker from '../components/3D/Picker';
 // ─── css  ───────────────────────────────────────────────────────────────────────
 //배경색
 // const SkyBackground = tw.div`
@@ -196,9 +198,10 @@ export  default function Modify(){
             </mesh>
             <OrbitControls/> {/*3D 모델 축 회전 관련*/}
             {/* </Suspense> */}
-
         </Canvas>
+       
         </div>
+        <Picker/>
 
         {/* <Image alt='ecommerce' src='https://dummyimage.com/400x400'/> */}
         {/* 캔버스------------------------- */}
