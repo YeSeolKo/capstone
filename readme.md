@@ -20,6 +20,7 @@ https://colab.research.google.com/drive/1xxMY42szzbGTZvvhHdB7h77q0MqdtEfU?usp=sh
 kssg5302@skuniv.ac.kr
 
 
+### 구현 내용 pdf 
 - 발표용 pdf 확인 가능합니다
 - 개발 내용을 간략하게 ppt(pdf)로 작성했습니다.
 - <수정필요> 
