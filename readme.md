@@ -11,10 +11,8 @@
 2. 헤어 인식모델 관련 코드 
 https://colab.research.google.com/drive/1xxMY42szzbGTZvvhHdB7h77q0MqdtEfU?usp=sharing
 
-3. 안경 착용 유무 관련 코드
-- (프로젝트 폴더 내에 있음)
-- backend/glassesDetection.py 
-
++ 헤어 데이터셋 전처리 코드 (로컬) 
+-> 추가 예정 (ipnyb파일 업로드 이슈문제 ) 
 
 ### 구현 내용 pdf 
 - 발표용 pdf 확인 가능합니다
