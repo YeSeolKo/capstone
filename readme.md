@@ -1,4 +1,4 @@
-### 
+### DeepLearning 
  + 현재 레포지토리에 있는 backend, frontend소스코드 외에
  + 딥러닝 관련 소스코드 링크 입니다.
  + 딥러닝은 colab에서 개발했습니다.
