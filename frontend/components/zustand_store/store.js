@@ -1,6 +1,7 @@
 import create from 'zustand';
 import matching_json from'../../public/json/chracter_matching.json';
 
+//전역상태관리 
 //FIXME - 새로고침 하면 사라짐 
 const useStore = create((set) => ({
     // 안경 (처음엔 o,x )
@@ -10,10 +11,18 @@ const useStore = create((set) => ({
     },
 
     //얼굴형
+    // face_state:null,
+    // setFace_state:(newFace)=>{
+    //   set({face_state:newFace});
+    // },
+    
+    //얼굴형
     face_state:null,
     setFace_state:(newFace)=>{
       set({face_state:newFace});
+      console.log('>>> 얼굴형',newFace);
     },
+
     //헤어스타일
     hair_state:null,
     setHair_state:(newHair)=>{
