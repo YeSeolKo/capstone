@@ -1,1 +1,33 @@
-# hi 
+### DeepLearning 
+ + 현재 레포지토리에 있는 backend, frontend소스코드 외에
+ + 딥러닝 관련 소스코드 링크 입니다.
+ + 딥러닝은 colab에서 개발했습니다.
+
+
+1. 얼굴 인식 모델 관련 코드
+- * 코랩 환경에서 개발하였습니다. -
+ https://colab.research.google.com/drive/1ZkpggY0T89X4j0yo3Yn4oPtBF9cqMNIU?authuser=1&hl=ko
+
+2. 헤어 인식모델 관련 코드 
+https://colab.research.google.com/drive/1xxMY42szzbGTZvvhHdB7h77q0MqdtEfU?usp=sharing
+
++ 헤어 데이터셋 전처리 코드 (로컬) 
+-> 추가 예정 (ipnyb파일 업로드 이슈문제 ) 
+
+### 구현 내용 pdf 
+- 발표용 pdf 확인 가능합니다
+- 개발 내용을 간략하게 ppt(pdf)로 작성했습니다.
+- <수정필요> 
+[졸작전시_고예설 .pdf](https://github.com/YeSeolKo/capstone/files/11483692/_.pdf)
+
+
+
+
+
+연락 메일 : 고예설 
+kssg5302@skuniv.ac.kr
+
+
+
+
+
