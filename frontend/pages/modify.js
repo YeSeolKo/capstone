@@ -32,14 +32,6 @@ import hairMeshMatching from '../components/function/hairMeshMatching';
 //Pcker
 import Picker from '../components/3D/Picker';
 // ─── css  ───────────────────────────────────────────────────────────────────────
-//배경색
-// const SkyBackground = tw.div`
-//   relative py-10 bg-gradient-to-br from-sky-50 to-gray-200
-// `;
-//가운데정렬
-// const Container = tw.div`
-//   relative container m-auto px-6  md:px-12 xl:px-40
-// `;
 
 //CONTENTS
 const Section = tw.section`bg-gradient-to-br from-sky-50 to-white-200/50 text-gray-600 body-font overflow-hidden`;
@@ -149,7 +141,7 @@ export  default function Modify(){
     };
 
 
-    //탭 !!!! 
+    //탭 !!!! (메뉴선택창 )
     const handleClick = e => {
       const index = parseInt(e.target.id, 0);
       if (index !== active) {
@@ -282,7 +274,7 @@ export  default function Modify(){
           <div className='flex'>
             <p>녹화 하러 가기 </p>
             {/* 링크 */}
-            {/* 라우팅 할 때 , zustand 현재 state도 보내버려 */}
+            {/* 라우팅 할 때 , zustand 현재 state도 넘기기  */}
             <Link href={{
               pathname: '/recording_tf',
               query: {

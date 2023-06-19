@@ -18,6 +18,8 @@ export default function Character_All(props) {
     const { nodes:nodes_eye_2, materials:materials_eye_2 } = useGLTF('3dParts/eye_2.glb');
     const { nodes:nodes_eyeline, materials:materials_eyeline } = useGLTF('3dParts/eyeline.glb');
     const { nodes:nodes_md_hair, materials:materials_md_hair } = useGLTF('3dParts/md_hair.glb');
+    // const { nodes:nodes_cap_eye, materials:materials_cap_eye}=useGLTF('./3dParts/capstone_eye.glb'); 
+    const { nodes:nodes_cap_faces, materials:materials_cap_faces } = useGLTF('3dParts/capstone_faces.glb');
 
     
     //조건 case 작성 !------------
@@ -46,9 +48,55 @@ export default function Character_All(props) {
                 </mesh>
             );
             break;
-
+        case 'Oval':
+            mesh=(
+                <mesh geometry={nodes_cap_faces.face01.geometry} material={materials_cap_faces['skin.001']} rotation={[0.07, 0, 0]} scale={1.96} />
+            );
+            break;
+        case 'Round':
+            mesh=(
+                <mesh geometry={nodes_cap_faces.Round.geometry} material={materials_cap_faces['skin.001']} 
+                position={[0.01, 0.23, -0.12]} scale={0.8} />
+            );
+            break;
+        case 'Square':
+            mesh=(
+                <mesh geometry={nodes_cap_faces.Square.geometry} material={materials_cap_faces['Material.007']} 
+                position={[0, 0.3, 0]} scale={0.82} />
+            );
+            break;
+        case 'Heart':
+            mesh=(
+                <mesh geometry={nodes_cap_faces.Heart.geometry} material={materials_cap_faces['Material.007']} 
+                position={[0.01, 0.29, -0.09]} scale={0.84} />
+            );
+            break;
+        case 'Oblong':
+            mesh=(
+                <mesh geometry={nodes_cap_faces.Oblong.geometry} material={materials_cap_faces['Material.007']} 
+                position={[0, 0.4, 0]} scale={0.75} />
+            );
+            break;
+        case 'ears':
+            mesh=(
+                <mesh geometry={nodes_cap_faces.ears.geometry} material={materials_cap_faces.ear} position={[0.7, 0.31, 0.14]} rotation={[0.04, 0, -0.02]} scale={0.44}>
+                <mesh geometry={nodes_cap_faces.ear_01001_1.geometry} material={materials_cap_faces.ear} position={[-3.21, -0.06, 0.01]} rotation={[3.14, -0.01, -0.04]} scale={-1} />
+              </mesh>
+            );
+            break;
 
         //NOTE - 눈────────────────────────────────────────
+        // case 'cap_eye':
+        //     mesh=(
+        //         <group>
+        //             <mesh geometry={nodes_cap_eye['eye-outer'].geometry} material={materials_cap_eye['eye-outer']} rotation={[Math.PI / 2, 0, 0]} />
+        //             <group position={[0, 0, -2.06]} rotation={[Math.PI / 2, 0, 0]} scale={1.62}>
+        //                 <mesh geometry={nodes_cap_eye.Sphere001.geometry} material={materials_cap_eye['eye-inner']} />
+        //                 <mesh geometry={nodes_cap_eye.Sphere001_1.geometry} material={materials_cap_eye.pupil} />
+        //             </group>
+        //         </group>
+        //     );
+        //     break;
         case 'eye_blue':
             mesh=(
                 <group>
@@ -119,7 +167,7 @@ export default function Character_All(props) {
         case 'pixelglasses':
             mesh = (
                 //-3.09, 0.35, 0.79
-            <group name="pixelglasses" position={[0.09, 0.5, 0.79]} rotation={[-Math.PI / 2, 0, 0]} scale={0.01}>
+            <group name="pixelglasses" position={[0.09, 0.4, 0.79]} rotation={[-Math.PI / 2, 0, 0]} scale={0.01}>
                 <group rotation={[Math.PI / 2, 0, 0]}>
                     <mesh geometry={nodes_v4.black_mesh_black_0.geometry} material={materials_v4.black} />
                     <mesh geometry={nodes_v4.white_mesh_white_0.geometry} material={materials_v4.white} />
@@ -193,7 +241,7 @@ export default function Character_All(props) {
         case 'hair_02_ex_male':
             mesh=(
                 <mesh name='hair_02_ex_male' geometry={nodes_v4.hair_02_ex_male.geometry} material={materials_v4['hair-cards.001']} 
-                position={[0.04, 0.83, -0.15]} rotation={[-2.63, 0.27, 1.34]} scale={1.25} 
+                position={[0.03, 0.83, -0.1]} rotation={[-2.63, 0.27, 1.34]} scale={1.25} 
                 material-color={snap.items.etc}/>
             );
             break;
@@ -249,6 +297,12 @@ export default function Character_All(props) {
             );
             break;
         //NOTE - 리젠트 (포마드)
+        case 'Resent':
+            mesh=(
+                <mesh name='Resent' geometry={nodes_v4.hair_01_garma.geometry} material={materials_v4.Hair} position={[0.03, -0.44, -0.02]} rotation={[Math.PI / 2, 0, 0]} scale={9.43} 
+                material-color={snap.items.etc}/>
+            );
+            break;
 
 
         //hair_09_leaf 리프(남성)
@@ -327,6 +381,7 @@ export default function Character_All(props) {
                 </group>
             );
             break;
+
         //숏단발
         case 'ShortDanbal':
         mesh=(
@@ -455,7 +510,31 @@ export default function Character_All(props) {
             break;
 
         //NOTE - 포마드
+        case 'Formard':
+            mesh=(
+                <mesh name='Formard' geometry={nodes_v4.hair_01_garma.geometry} material={materials_v4.Hair} position={[0.03, -0.44, -0.02]} rotation={[Math.PI / 2, 0, 0]} scale={9.43} 
+                material-color="black"
+                />
+            );
+            break;
+    
+
+
+        
         //NOTE -  플리츠 (묶은머리 )
+        case 'Plitz':
+            mesh=(
+                <group name='Plitz' position={[1.15, -11.41, 0.23]} scale={6.54}>
+                <mesh geometry={nodes_v4.Front_parts4_Front_parts4_0001.geometry} material={materials_v4['Front_parts4.001']}
+                material-color="black" />
+                <mesh geometry={nodes_v4.Front_parts4_Front_parts4_0001_1.geometry} material={materials_v4['Front_parts13_155.001']} 
+                 material-color="black"/>
+                <mesh geometry={nodes_v4.Front_parts4_Front_parts4_0001_2.geometry} material={materials_v4['Front_parts14_09.001']} 
+                 material-color="black"/>
+              </group>
+            );
+            break;
+        
 
         //FIXME - 히피
         case 'Hippy':

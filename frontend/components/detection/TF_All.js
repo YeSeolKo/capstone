@@ -1,6 +1,7 @@
 // //"" Tensorflow.js""" 
 // import { useRef, useState,useEffect } from 'react';
 // //tf
+// import * as tf from '@tensorflow/tfjs';
 import "@tensorflow/tfjs-core"; // 
 import "@tensorflow/tfjs-backend-webgl";
 import "@tensorflow/tfjs-converter";
@@ -21,7 +22,7 @@ import CameraView from './CameraView';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from "three";
 
-import Model from '../3D/Model';
+// import Model from '../3D/Model';
 import Lights from '../3D/Lights';
 import Character_All from "../3D/Character_All";
 //zustand
@@ -109,17 +110,6 @@ export default function TF_All() {
 
 
 
-  //타입 전부 가져옴
-
-
-    // let kp;
-    // const [position, setPosition] = useState([0, -1, 0]);
-
-    // const updatePosition = (keypoints) => {
-    //     const [nose, leftEye, rightEye] = keypoints;
-    //     setPosition([nose[0], nose[1], nose[2]]);
-     
-    // };
 
     //runFace 함수------------------------
     const runFaceDetect = async()=>{
@@ -148,8 +138,6 @@ export default function TF_All() {
           webcamRef.current.video.width=videoWidth;
           webcamRef.current.video.height=videoHeight;
 
-          // console.log(videoWidth); 640
-          // console.log(videoHeight)480
           //set canvas width
           canvasRef.current.width=videoWidth;
           canvasRef.current.height=videoHeight;
@@ -186,7 +174,7 @@ export default function TF_All() {
       //무한 재귀호출 방지 -> 100ms 마다detect함수 호출
       setTimeout(()=>{
         requestAnimationFrame(()=>detect(detector));
-      },10);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+      },100);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
     };
 
     //moveBox
@@ -217,35 +205,6 @@ export default function TF_All() {
       // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [webcamRef.current?.video?.readyState]);
 
-      //
-      // function Rig(){
-      //   const {camera} = useThree();
-      //   const target= new THREE.Vector3(0,0,0);
-      //   useFrame(()=>{
-      //     camera.position_z=-4.75;
-      //     camera.lookAt(target);
-      //   });
-      //   return null;
-      // }
-      // function Rig() {
-      //   const { camera } = useThree();
-      //   const target = new THREE.Vector3(0, 0, 0);
-      //   useFrame(() => {
-      //     camera.position.z = -4.75;
-      //     camera.lookAt(target);
-      //   });
-    
-      //   return null;
-      // }
-      // const videoWidth=640
-      // const videoHeight=480
-
-      // const cameraPosition = new THREE.Vector3(
-      //   videoWidth / 2,
-      //   -videoHeight / 2,
-      //   -(videoHeight / 2) / Math.tan(THREE.MathUtils.degToRad(45 / 2))
-      // );
-      // camera.lookAt({x:videoWidth/2,y:-videoHeight/2,z:0,isVector3:true})
       
       //Camera Setting
       function Rig() {
@@ -256,6 +215,7 @@ export default function TF_All() {
 
       
         useFrame(() => {
+          //카메라 각도 조절 - 정면모드 
           camera.position.set(videoWidth / 2, -videoHeight / 2, -(videoHeight / 2) / Math.tan(THREE.MathUtils.degToRad(45 / 2)));
           camera.lookAt(target);
         });
@@ -284,6 +244,7 @@ export default function TF_All() {
               <Character_All meshName={glasses_mesh_state}/>
               {/* 얼굴 */}
               <Character_All meshName='face02'/>
+              {/* <Character_All meshName={face_state}/> */}
               
               {/* 헤어 */}
               {/* FIXME - zustand 대신 함수 사용 */}
@@ -291,25 +252,10 @@ export default function TF_All() {
               {/* 눈 */}
               <Character_All meshName={eye_state}/>
               
-              {/* <Character_All meshName='glasses_1'/>
-              <Character_All meshName='face02'/> */}
+            
             </mesh>
-            {/* </Rig> */}
           </Canvas>
           </Div>
-          {/* <Canvas
-            colorManagement
-            shadowMap
-            camera={{position: [0, 0, 2], fov: 60}}>
-              <Lights />
-              <Suspense fallback={null}>
-                <mesh position={[0,-1,0]}>
-                  <Model position={position}/>
-                </mesh>
-              </Suspense>
-            </Canvas> */}
-        {/* </div> */}
-        {/* <CameraView updatePosition={updatePosition}/> */}
         </>
       );
     }

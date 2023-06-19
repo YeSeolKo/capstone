@@ -18,11 +18,16 @@ export default function CharacterTesting(){
         <Canvas style={{ width: '600px' ,height:'600px'}} >
             <Lights/>
             <mesh>
-                <Character_All meshName='face02'/>
+                {/* <Character_All meshName='face02'/> */}
                 <Character_All meshName='glasses_1'/>
                 <Character_All meshName='eye_1'/>
                 <Character_All meshName='eyeline'/>
                 <Character_All meshName='md_hair'/>
+                {/* <Character_All meshName='round'/> */}
+                <Character_All meshName='square'/>
+                <Character_All meshName='ears'/>
+
+
                 {/* <Character_All meshName='pixelglasses'/> */}
                 {/* <Character_All meshName='B'/>
                 <Character_All meshName='C'/> */}

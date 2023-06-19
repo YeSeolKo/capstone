@@ -73,8 +73,8 @@ export  default function Analyze(){
     useEffect(()=>{
       if (data && data.glasses_type&&data.face_type&&data.hair_type) {
         setGlasses_state(data.glasses_type);//안경 O,X
-        setFace_state(data.face_type); //얼굴 Oval
-        setHair_state(data.hair_type[0]); //헤어 애즈 
+        setFace_state(data.face_type); //얼굴 
+        setHair_state(data.hair_type[0]); //헤어 
         setHairMesh_state(data.hair_type[0]); //NOTE - 
         //눈 상태 초기화 해야함
         setEyeState('eye_2');
@@ -119,8 +119,8 @@ export  default function Analyze(){
             <Lights/>
             {/* <Suspense fallback={}> */}
             {/* //NOTE - 한글폰트 */}
-            <Text position={[0, 2.5, 0]} fontSize={1} outlineColor="black"outlineWidth={0.02} >
-            Hello, World! </Text> 
+            <Text position={[0, 2.5, 0]} fontSize={1} outlineColor="gray"outlineWidth={0.02} >
+            Hi - !  </Text> 
 
             {/* 캐릭터------------- */}
             {/* <Suspense fallback={<Loading/>}> */}
@@ -129,7 +129,10 @@ export  default function Analyze(){
               {/* 안경 있으면 렌더링 */}
               {glasses_type=='O'?(<Character_All meshName='glasses_1'/>):null}
               {/* 얼굴 */}
-              <Character_All meshName='face02'/>
+              {/* 전역 상태 관리 store에 얼굴형 추가 */}
+              <Character_All meshName={face_state}/> 
+              {/* 귀 */}
+              <Character_All meshName='ears'/>
               {/* 헤어 */}
               <Character_All meshName={top1_hair_mesh}/>
               {/* 눈 */}
