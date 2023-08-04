@@ -1,10 +1,11 @@
 // //"" Tensorflow.js""" 
 // import { useRef, useState,useEffect } from 'react';
-// //tf
-// import * as tf from '@tensorflow/tfjs';
-import "@tensorflow/tfjs-core"; // 
-import "@tensorflow/tfjs-backend-webgl";
-import "@tensorflow/tfjs-converter";
+// // //tf
+import * as tf from '@tensorflow/tfjs';
+// import "@tensorflow/tfjs-backend-webgl";
+// import * as tf from"@tensorflow/tfjs-core"; // 
+// import "@tensorflow/tfjs-converter";
+// import '@tensorflow/tfjs-backend-webgpu'; //NOTE webgpu가 추가된듯 
 
 import * as pose  from "@tensorflow-models/pose-detection";
 
@@ -21,6 +22,7 @@ import CameraView from './CameraView';
 //R3F
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from "three";
+import {Euler}from"three";
 
 // import Model from '../3D/Model';
 import Lights from '../3D/Lights';
@@ -109,6 +111,10 @@ export default function TF_All() {
 
 
 
+   //tensorflow 초기화 
+   // NOTE : webgpu 추가 
+  // tf.setBackend('webgpu');
+
 
 
     //runFace 함수------------------------
@@ -116,7 +122,11 @@ export default function TF_All() {
       const model=pose.SupportedModels.BlazePose;//model
       const detectorConfig={
         runtime:"tfjs", 
+        roiWidth:"100" //roiWidth때문에 tfjs-core 말고 tfjs써야한다.. 
       };
+      //wait for WebGPU backend to initailized(webgpu초기화)
+      await tf.setBackend('webgpu');
+      await tf.ready();
       //detector생성
       const detector = await pose.createDetector(model,detectorConfig);
       await detect(detector);
@@ -142,8 +152,7 @@ export default function TF_All() {
           canvasRef.current.width=videoWidth;
           canvasRef.current.height=videoHeight;
           
-          const estimationConfig = { flipHorizontal: false };//수평반전
-          //예측(pose)
+          const estimationConfig = { flipHorizontal: true };//수평반전 안함 
           const predictions=await detector.estimatePoses(video,estimationConfig);
           //코 x,y좌표(keypoints3D[0]=nose)!!!!!!
           // console.log(predictions[0].keypoints3D[0]);
@@ -154,17 +163,16 @@ export default function TF_All() {
           const position_x = predictions[0]?.keypoints3D[0]?.x;
           const position_y = predictions[0]?.keypoints3D[0]?.y;
           const position_z = predictions[0]?.keypoints3D[0]?.z;
-
-          // const position_x=predictions[0].keypoints3D[0].x
-          // const position_y=predictions[0].keypoints3D[0].y
-          // const position_z=predictions[0].keypoints3D[0].z
+          
+  
           //얼굴이 화면 밖을 나가면 error
           if (position_x!==undefined && position_y!==undefined&&position_z!==undefined){
               moveBox(position_x,position_y,position_z);
           }else{
             //얼굴이 화면 밖을 나가서 position=undefined일때(position찾을때 까지 대기)
             //position다시 찾으면 재귀함수호출해서 position_x,y,z 세팅 
-            setTimeout(waitForPosition,1000);
+            // setTimeout(waitForPosition,100);
+            setTimeout(() => waitForPosition(predictions), 100);
           }
         };
         waitForPosition();
@@ -181,47 +189,61 @@ export default function TF_All() {
     const moveBox=(position_x,position_y,position_z)=>{
       if(boxRef.current){
         // 2D 좌표를 3D 좌표로 변
-        // const canvasWidth=canvasRef.current.width;
-        // const canvasHeight=canvasRef.current.height;
-        // boxRef.current.position.x=(position_x/canvasHeight)*2-1;
-        // boxRef.current.position.y=(position_y/canvasHeight)*-2+1;
-        // boxRef.current.position.z=position_z;
-
-
-
         boxRef.current.position.x=position_x;
         boxRef.current.position.y=position_y;
         boxRef.current.position.z=position_z;
-        console.log('>>>>>>>> x좌표:', boxRef.current.position.x)
-
-
-
-        // boxRef.current.position.z=position.z;
+        console.log('>>>>>x좌표:',boxRef.current.position.x)
+        console.log('>>>>>y좌표:',boxRef.current.position.y)
+        console.log('>>>>>>>> z좌표:', boxRef.current.position.z)
+     
+        //회전
+        console.log(Math.PI/4+position_x*2) //각도 변환 (y축 기준)
+        boxRef.current.rotation.set(0,Math.PI/8 +position_x*1.5 ,0)
       }
     };
+
+
+    
 
       useEffect(() => {
         runFaceDetect();
       // eslint-disable-next-line react-hooks/exhaustive-deps
-      }, [webcamRef.current?.video?.readyState]);
+      }, []);
 
       
       //Camera Setting
-      function Rig() {
-        const { camera } = useThree();
-        const videoWidth=640;
-        const videoHeight=480;
-        const target = new THREE.Vector3(videoWidth / 2, -videoHeight / 2, 0);
+      // function Rig() {
+      //   const { camera } = useThree();
+      //   const videoWidth=640;
+      //   const videoHeight=480;
+      //   const target = new THREE.Vector3(videoWidth / 2, -videoHeight / 2, 0);
 
       
-        useFrame(() => {
-          //카메라 각도 조절 - 정면모드 
-          camera.position.set(videoWidth / 2, -videoHeight / 2, -(videoHeight / 2) / Math.tan(THREE.MathUtils.degToRad(45 / 2)));
-          camera.lookAt(target);
-        });
+      //   useFrame(() => {
+      //     //카메라 각도 조절 - 정면모드 
+      //     camera.position.set(videoWidth / 2, -videoHeight / 2, -(videoHeight / 2) / Math.tan(THREE.MathUtils.degToRad(45 / 2)));
+      //     camera.lookAt(target);
+      //   });
       
-        return null;
-      }
+      //   return null;
+      // }
+      // function Rig() {
+      //   const { camera } = useThree();
+      //   const videoWidth = 640;
+      //   const videoHeight = 480;
+      //   const target = new THREE.Vector3(videoWidth / 2, -videoHeight / 2, 0);
+    
+      //   useFrame(() => {
+      //     camera.position.set(
+      //       videoWidth / 2,
+      //       -videoHeight / 2,
+      //       -(videoHeight / 2) / Math.tan(THREE.MathUtils.degToRad(45 / 2))
+      //     );
+      //     camera.lookAt(target);
+      //   });
+    
+      //   return null;
+      // }
     
 
     
@@ -239,12 +261,14 @@ export default function TF_All() {
             <Lights/>
             {/* 캐릭터 */}
             {/* NOTE - 캐릭터 */}
-            <mesh ref={boxRef} >
+            <mesh ref={boxRef} rotation={[-0.1,0,0]} >
               {/* 안경 */}
-              <Character_All meshName={glasses_mesh_state}/>
+              {/* <Character_All meshName={glasses_mesh_state}/> */}
+              {/* <Character_All meshName={glasses_mesh_state}/> */}
+              <Character_All meshName='glasses_1'/>
               {/* 얼굴 */}
-              <Character_All meshName='face02'/>
-              {/* <Character_All meshName={face_state}/> */}
+              {/* <Character_All meshName='face02'/> */}
+              <Character_All meshName={face_state}/>
               
               {/* 헤어 */}
               {/* FIXME - zustand 대신 함수 사용 */}

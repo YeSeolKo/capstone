@@ -24,7 +24,7 @@ export default function CharacterTesting(){
                 <Character_All meshName='eyeline'/>
                 <Character_All meshName='md_hair'/>
                 {/* <Character_All meshName='round'/> */}
-                <Character_All meshName='square'/>
+                <Character_All meshName='Heart' />
                 <Character_All meshName='ears'/>
 
 
